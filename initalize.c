@@ -18,57 +18,6 @@ int	checkpath_textures(char *prefix, char *path)
 	return (fd);
 }
 
-int	check_elements(t_elements *elements, ) //memset libft the struct B4...
-{
-	struct	elements;
-}
-
-int	check_map()
-{
-
-}
-
-/*
- * doesnt need to verify for a name before the extension, as the extension
- * itself count as a valid name.
- */
-int	check_cub_type(char *str)//better with strcmp
-{
-	int	i;
-
-	i = 0;
-	while (str[i] && str[i + 3])
-	{
-		if (str[i] == '.')
-		{
-			if (str[i + 1] == 'c' && str[i + 2] == 'u'
-					&& str[i + 3] == 'b' && str[i + 4] == '\0')
-				return (0);
-		}
-		i ++;
-	}
-	return (1);
-}
-
-int	check_xpm_type(char *str)//better with strcmp
-{
-	int	i;
-
-	i = 0;
-	while (str[i] && str[i + 3])
-	{
-		if (str[i] == '.')
-		{
-			if (str[i + 1] == 'x' && str[i + 2] == 'p'
-					&& str[i + 3] == 'm' && str[i + 4] == '\0')
-				return (0);
-		}
-		i ++;
-	}
-	return (1);
-}
-
-
 int	check_args_n_fd(int argc, char **argv)
 {
 	int	fd;
@@ -78,7 +27,7 @@ int	check_args_n_fd(int argc, char **argv)
 		ft_printf("Error\n\nWrong amount of arguments\n");
 		exit(1);
 	}
- 	if (check_file_type(argv[1]))
+ 	if (!check_postfix(argv[1]), ".cub")
 	{
 		ft_printf("Error\n\nInvalid file extension, must be '.cub'\n");
 		exit(1);
