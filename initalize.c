@@ -12,7 +12,7 @@ int	checkpath_textures(char *prefix, char *path)
 	}
 	if (checkformat_textures(fd))
 	{
-		printf("Error\n\n%s texture isn t to the right format", prefix)
+		printf("Error\n\n%s texture isn't to the right format\n", prefix)
 		exit(1);
 	}
 	return (fd);

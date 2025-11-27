@@ -16,47 +16,97 @@ int	closed_map(char **map)
 	while ()
 }
 
-int	only_charset(char *str, char *set)//could indicate bad char if needed
+
+/*
+ * verify the map when there are no whitespaces, such as no open spaces in
+ * column 0, no open spaces at max width'
+ *
+ */
+void	verify_exceptions(char **map, int height, int *error)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	while (str[i])
+	while (i <= height)
 	{
-		j = 0;
-		while (set[j])
+		if (map[i][0] == '0')
 		{
-			if (str[i] == set[j])
-				break ;
-			j ++;
+			printf("Error\nLine %i is not closed\n", i);
+			*error ++;
 		}
-		if (set[j] == '\0')
-			return (0);
 		i ++;
 	}
-	return (1);
+}
+
+void	verify_perimeter(char **map, int height, int *error)
+{
+int	
 }
 
 /*
- * doesnt need to verify for a name before the extension, as the extension
- * itself count as a valid name.
+ * aims to fill a struct with all fields initialized to NULL for char *paths
+ * or -1 for integers to give a warning
+ * when any field is already set as to avoid doubles attributes in the "header"
+ *
+ * whenever a path is set, tries to open said path after filling its field
+ * so that the error count doesnt count both the field being empty and being
+ * unopenable.
  */
-int	check_postfix(char *source, char *postfix)
+void	verify_header(int fd, int *error)
 {
-	int	i;
-	int	j;
+	char *line;
 
-	if (ft_strlen(postfix) > source)
-		return (0);
-	i = ft_strlen(source) - ft_strlen(postfix);
-	j = 0;
-	while (source[i])
+	line = get_next_line(fd);
+
+	if (!line)//either gnl malloc failed or gnl instantly reached EOF
 	{
-		if (source[i] != postfix[j])
-			return (0);
-		i ++;
-		j ++;
+		//printf("Error\n\n");
+		return ;
 	}
-	return (1);
+	while ( || )//verify each field to see if they're still empty
+	{
+		line = get_next_line(fd);
+		if (!line)
+		{
+			printf("Error\nGet_next_line failed at line %i\n");
+			*error ++;
+		}
+		func(&struct, line);
+
+	}
 }
+
+void	fill_fields(struct *, char *line, int *error, int i)
+{
+	if (line[0] == 'F' && line[1] == ' ')
+		func_floor;
+	else if (line[0] == 'C' && line[1] == ' ')
+		func_ceilling;
+	else if (line[0] == 'N' && line[1] == 'O')
+		func_NO;
+	else if (line[0] == 'S' && line[1] == 'O')
+		func_SO;
+	else if (line[0] == 'W' && line[1] == 'E')
+		func_WE;
+	else if (line[0] == 'E' && line[1] == 'A')
+		func_EA;
+	else if (only_newline)
+		return;
+	else
+	{
+		*error ++;
+		printf("Error\nGet_next_line failed at line %i\n", i);
+	}
+}
+
+/*
+	{
+		if ()//verify said field to proceed only if empty
+			truc;
+		else
+		{
+			printf("Error\nDouble attribution for 'F' at line %i\n", i);
+			*error ++;
+		}
+	}
+
