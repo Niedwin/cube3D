@@ -54,13 +54,15 @@ int
  */
 void	verify_header(int fd, int *error)
 {
+	int	i;
 	char *line;
 
+	i = 0;
 	line = get_next_line(fd);
 
 	if (!line)//either gnl malloc failed or gnl instantly reached EOF
 	{
-		//printf("Error\n\n");
+		// (@) may use smthing else than 'printf' to gain 'ERRNO' for context
 		return ;
 	}
 	while ( || )//verify each field to see if they're still empty
@@ -68,34 +70,36 @@ void	verify_header(int fd, int *error)
 		line = get_next_line(fd);
 		if (!line)
 		{
-			printf("Error\nGet_next_line failed at line %i\n");
+			// (@) printf("Error\nGet_next_line failed at line %i\n", i);
 			*error ++;
+			return ;
 		}
-		func(&struct, line);
-
+		fill_fields(&struct, line, error, i);
+		i ++;
 	}
 }
 
+//aims to process every line within the header
 void	fill_fields(struct *, char *line, int *error, int i)
 {
 	if (line[0] == 'F' && line[1] == ' ')
-		func_floor;
+		check_floor(struct, line, error, i);
 	else if (line[0] == 'C' && line[1] == ' ')
-		func_ceilling;
+		check_ceilling(struct, line, error, i);
 	else if (line[0] == 'N' && line[1] == 'O')
-		func_NO;
+		check_north(struct, line, error, i);
 	else if (line[0] == 'S' && line[1] == 'O')
-		func_SO;
+		check_south(struct, line, error, i);
 	else if (line[0] == 'W' && line[1] == 'E')
-		func_WE;
+		check_west(struct, line, error, i);
 	else if (line[0] == 'E' && line[1] == 'A')
-		func_EA;
-	else if (only_newline)
-		return;
+		check_east(struct, line, error, i);
+	else if (only_newline(line))
+		return ;
 	else
 	{
 		*error ++;
-		printf("Error\nGet_next_line failed at line %i\n", i);
+		printf("Error\nInvalid line found at : %i\n", i);
 	}
 }
 
