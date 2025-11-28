@@ -79,7 +79,7 @@ void	verify_header(int fd, int *error)
 	}
 }
 
-//aims to process every line within the header
+//must be used to process any line within the header, could be an hashtable*
 void	fill_fields(struct *, char *line, int *error, int i)
 {
 	if (line[0] == 'F' && line[1] == ' ')
@@ -102,15 +102,3 @@ void	fill_fields(struct *, char *line, int *error, int i)
 		printf("Error\nInvalid line found at : %i\n", i);
 	}
 }
-
-/*
-	{
-		if ()//verify said field to proceed only if empty
-			truc;
-		else
-		{
-			printf("Error\nDouble attribution for 'F' at line %i\n", i);
-			*error ++;
-		}
-	}
-

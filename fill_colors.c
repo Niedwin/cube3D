@@ -10,11 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-void	check_floor()
+void	check_floor(struct*, char *line, int *error, int i)
 {
+
+	{
+		if ()//verify said field to proceed only if empty
+			truc;//indicate error, or fill associated field
+		else
+		{
+			printf("Error\nDouble attribution for 'F' at line %i\n", i);
+			*error ++;
+		}
+	}
+
 }
 
-void	check_ceilling()
-{
+void	check_ceilling(struct*, char *line, int *error, int i)
+{	
+	{
+		if ()//verify said field to proceed only if empty
+			truc;//indicate error, or fill associated field
+		else
+		{
+			printf("Error\nDouble attribution for 'C' at line %i\n", i);
+			*error ++;
+		}
+	}
 }
 
