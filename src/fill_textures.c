@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   fill_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kguillem <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 19:38:50 by kguillem          #+#    #+#             */
-/*   Updated: 2025/11/27 22:12:13 by kguillem         ###   ########.fr       */
+/*   Updated: 2025/12/10 19:25:19 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "CUBE_H"
+#include "cube.h"
 
 void	check_north(struct*, char *line, int *error, int i)
 {

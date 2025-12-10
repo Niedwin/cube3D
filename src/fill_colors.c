@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   fill_colors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kguillem <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 22:04:21 by kguillem          #+#    #+#             */
-/*   Updated: 2025/11/27 22:12:08 by kguillem         ###   ########.fr       */
+/*   Updated: 2025/12/10 19:25:52 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "CUBE_H"
-void	check_floor(struct*, char *line, int *error, int i)
+#include "cube.h"
+
+void	check_floor(t_header *header, char *line, int *error, int i)
 {
 
 	{
