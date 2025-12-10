@@ -1,3 +1,5 @@
+
+#include "CUBE_H"
 //charset for map : " 01NSEW" subject indicate 6 but exemple shows 7 for spaces
 int	only_charset(char *str, char *set)//could indicate bad chars if needed
 {

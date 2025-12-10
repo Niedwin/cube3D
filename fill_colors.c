@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "CUBE_H"
 void	check_floor(struct*, char *line, int *error, int i)
 {
 

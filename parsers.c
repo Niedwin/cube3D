@@ -1,3 +1,5 @@
+
+#include "CUBE_H"
 /* ................................ONGOING.....................................
  * target an empty space on the map, checks every neighboors of said empty space
  * if adjacent spaces are neither filled with walls or other empty space

@@ -1,4 +1,4 @@
-#include <fcntl.h>
+#include "CUBE_H"
 
 int	checkpath_textures(char *prefix, char *path)
 {
@@ -41,7 +41,7 @@ int	check_args_n_fd(int argc, char **argv)
 	return (fd);
 }
 
-int	initialize_struct()
+int	initialize_struct(struct *)
 {
-
+	//initialize all fields to NULL or -1
 }
