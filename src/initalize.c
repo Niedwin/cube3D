@@ -1,4 +1,16 @@
-#include "CUBE_H"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   initalize.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/10 19:34:00 by guviure           #+#    #+#             */
+/*   Updated: 2025/12/10 19:34:43 by guviure          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cube.h"
 
 int	checkpath_textures(char *prefix, char *path)
 {
@@ -7,12 +19,12 @@ int	checkpath_textures(char *prefix, char *path)
 	fd = open(path);
 	if (fd == -1)
 	{
-		printf("Error\n\nCannot open %s texture", prefix)
+		printf("Error\n\nCannot open %s texture", prefix);
 		exit(1);
 	}
 	if (checkformat_textures(fd))
 	{
-		printf("Error\n\n%s texture isn't to the right format\n", prefix)
+		printf("Error\n\n%s texture isn't to the right format\n", prefix);
 		exit(1);
 	}
 	return (fd);
