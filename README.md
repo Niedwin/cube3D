@@ -1,17 +1,17 @@
 _This project has been created as part of the 42 curriculum by <kguillem>[, <guviure>]._
 ---
 
-> # Cube3D
+# Cube3D
 
-#### *"Description"*
+### *Description*
 
 > this is a test "blockquote"
 >
 > > this is a test "nested blockquote"
 
-#### *"Instructions"*
+### *Instructions*
 
-#### *"Resources"*
+### *Resources*
 
-#### *"Submission details"*
+### *Submission details*
 
