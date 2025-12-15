@@ -1,49 +1,49 @@
+NAME = cub3D
+SRCS = src/main.c \
+			src/fill_colors.c \
+			src/fill_texture.c \
+			src/initialize.c \
+			src/parsers.c \
+			src/utils.c \
 
-SRC_FILES = main.c \
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -g
+LIBS = -L./Libft -lft -lreadline
+MMLX = -Lminilibx-linux -lmlx -lXext -lX11 
  
 BONUS_FILES =
 
-SRC = $(addprefix src/, ${SRC_FILES})
-BONUS_SRC = $(addprefix src/, ${BONUS_FILES})
+OBJS = $(SRCS:.c=.o)
 
-COMPILER = cc
-CFLAGS = -Wall -Wextra -Werror -ggdb
+all: libft mlx $(NAME)
+	@echo "\033[1;93m [WAIT] \033[0m\t\033[1;35mBuilding cube3D...\033[0m" 
 
-OBJ = ${SRC:.c=.o}
-BONUS_OBJ = ${BONUS_SRC:.c=.o}
-TEST_OBJ = ${TEST_SRC:.c=.o}
+libft:
+	@make -C Libft --no-print-directory
 
-NAME = cub3D
+mlx:
+	@make -C minilibx-linux 
 
-LIB_DIRS = 
-LIB_NAMES = 
+$(NAME): $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(MMLX) -o $(NAME)
+	@echo "\033[1;32m [OK]   \033[0m\t\033[1;35mcube3D built successfully!\033[0m"
 
-LIB_PATHS = $(addprefix -L, $(LIB_DIRS))
-LIB_FLAGS = $(addprefix -l, $(LIB_NAMES))
+%.o: %.c
+	@echo "\033[1;90m [COMPILE] \033[0m $<"
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-LDFLAGS = $(LIB_PATHS) $(LIB_FLAGS)
+clean:
+	@rm -f $(OBJS)
+	@make -C Libft clean --no-print-directory
+	@make -C minilibx-linux clean --no-print-directory
+	@echo "\033[1;34m [CLEAN] \033[0m Object files removed."
 
-.PHONY: all clean fclean re
+fclean: clean
+	@rm -f $(NAME)
+	@make -C Libft fclean --no-print-directory
+	@make -C minilibx-linux fclean --no-print-directory
+	@echo "\033[1;31m [FCLEAN] \033[0m Executable and object files removed."
 
-.c.o:
-	${COMPILER} ${CFLAGS} -c $< -o ${<:.c=.o} -I.
+re: fclean all
 
-all: ${NAME}
-
-${NAME}: ${OBJ}
-	$(foreach dir, ${LIB_DIRS}, ${MAKE} -C ${dir};)
-	${COMPILER} ${CFLAGS} -o ${NAME} ${OBJ} ${LDFLAGS}
-
-bonus: ${OBJ} ${BONUS_OBJ}
-	$(foreach dir, ${LIB_DIRS}, ${MAKE} -C ${dir} bonus;)
-	${COMPILER} ${CFLAGS} -o ${NAME} ${OBJ} ${BONUS_OBJ} ${LDFLAGS}
-
-clean_self:
-	rm -f ${OBJ} ${BONUS_OBJ}
-
-clean: clean_self
-	$(foreach dir, ${LIB_DIRS}, ${MAKE} -C ${dir} clean;)
-
-fclean: clean_self
-	$(foreach dir, ${LIB_DIRS}, ${MAKE} -C ${dir} fclean;)
-	rm -f ${NAME}
+.PHONY: all libft mlx clean fclean re

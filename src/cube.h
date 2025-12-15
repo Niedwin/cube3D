@@ -6,21 +6,26 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 19:02:48 by guviure           #+#    #+#             */
-/*   Updated: 2025/12/12 17:36:19 by guviure          ###   ########.fr       */
+/*   Updated: 2025/12/15 19:00:45 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUBE_H
 # define CUBE_H
 
+#define mapWidth 24
+#define mapHeight 24
+#define screenWidth 640
+#define screenHeight 480
 //COMMON LIBRARIES//
 # include <stdio.h>
 # include <fcntl.h>
 # include <stdlib.h>
-# include "minilibx-linux/mlx.h"
+# include <math.h>
+# include "../minilibx-linux/mlx.h"
 
 //OTHER LIBRARIES//
-# include "Libft/libft.h"
+# include "../Libft/libft.h"
 
 //STRUCTS//
 typedef struct	s_mlx_data
