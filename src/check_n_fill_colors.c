@@ -14,29 +14,32 @@
 
 void	check_floor(t_header *header, char *line, int *error, int i)
 {
-
+	if (header->floor == NULL)//verify said field to proceed only if empty
+		fill_floor(header, line, error, i);//fill associated field
+	else
 	{
-		if (header->floor == NULL)//verify said field to proceed only if empty
-			fill_floor(header, line, error, i);//fill associated field
-		else
-		{
-			printf("Error\nMultiple attribution for 'F' at line %i\n", i);
-			*error ++;
-		}
+		printf("Error\nMultiple attribution for 'F' at line %i\n", i);
+		*error ++;
 	}
-
 }
 
 void	check_ceilling(t_header *header, char *line, int *error, int i)
 {	
+	if (header->ceiling == NULL)//verify said field to proceed only if empty
+		fill_ceiling(header, line, error, i);//fill associated field
+	else
 	{
-		if (header->ceiling == NULL)//verify said field to proceed only if empty
-			fill_ceiling(header, line, error, i);//fill associated field
-		else
-		{
-			printf("Error\nMultiple attribution for 'C' at line %i\n", i);
-			*error ++;
-		}
+		printf("Error\nMultiple attribution for 'C' at line %i\n", i);
+		*error ++;
 	}
 }
 
+void	fill_floor(t_header *header, char *line, int *error, int i)
+{
+
+}
+
+void	fill_ceiling(t_header *header, char *line, int *error, int i)
+{
+
+}
