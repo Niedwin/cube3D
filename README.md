@@ -23,7 +23,10 @@ _This project has been created as part of the 42 curriculum by kguillem, guviure
 
 > Use the **make** command within the root of the repository to generate the executable named **cub3D**.
 > Still in the same folder, execute the command **./cub3d** followed by a space and the path to a single valid **.cub** file as argument.
-> If the file contents meet the requirements, a window will open.
+> The requirements of the **.cub** file  are first :
+> > Paths to the textures for the walls linked to their cardinal directions
+> >
+> And last the map contents, wich must be composed of only 1 player orientation character (either N, S, E or W), any number of floor tiles characters (0) which must be contained by wall characters (1) to prevent the player going out of bounds and
 
 ### Resources
 
