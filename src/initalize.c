@@ -53,7 +53,9 @@ int	check_args_n_fd(int argc, char **argv)
 	return (fd);
 }
 
-int	initialize_struct(struct *)
+//TODO
+
+int	initialize_struct(t_header *header)
 {
 	//initialize all fields to NULL or -1
 }

@@ -22,7 +22,7 @@
 # include "Libft/libft.h"
 
 //STRUCTS//
-typedef struct	header
+typedef struct	s_header
 {
 char ceiling[3];//saves each 0 to 255 color value as chars to save memory
 char floor[3];//might be NULL terminated or undoable because ascii limits

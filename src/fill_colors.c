@@ -16,25 +16,25 @@ void	check_floor(t_header *header, char *line, int *error, int i)
 {
 
 	{
-		if ()//verify said field to proceed only if empty
-			truc;//indicate error, or fill associated field
+		if (header->floor == NULL)//verify said field to proceed only if empty
+			fill_floor(header, line, error, i);//fill associated field
 		else
 		{
-			printf("Error\nDouble attribution for 'F' at line %i\n", i);
+			printf("Error\nMultiple attribution for 'F' at line %i\n", i);
 			*error ++;
 		}
 	}
 
 }
 
-void	check_ceilling(struct*, char *line, int *error, int i)
+void	check_ceilling(t_header *header, char *line, int *error, int i)
 {	
 	{
-		if ()//verify said field to proceed only if empty
-			truc;//indicate error, or fill associated field
+		if (header->ceiling == NULL)//verify said field to proceed only if empty
+			fill_ceiling(header, line, error, i);//fill associated field
 		else
 		{
-			printf("Error\nDouble attribution for 'C' at line %i\n", i);
+			printf("Error\nMultiple attribution for 'C' at line %i\n", i);
 			*error ++;
 		}
 	}
