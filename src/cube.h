@@ -28,15 +28,23 @@
 # include "../Libft/libft.h"
 
 //STRUCTS//
-typedef struct	s_mlx_data
+typedef struct	s_img
 {
-char ceiling[3];//saves each 0 to 255 color value as chars to save memory
-char floor[3];//might be NULL terminated or undoable because ascii limits
-char *north_texture;
-char *south_texture;
-char *east_texture;
-char *west_texture;
-}	t_mlx_data;
+void    *img;
+char    *addr;
+int     bpp;
+int     line_len;
+int     endian;
+}	t_img;
+
+typedef struct s_map
+{
+	char		**map_tab;
+	int			F_rgb;
+	int			C_rgb;
+	int			Heightmap;
+	int			Widthmap;
+}   t_map;
 //PROTOTYPES//
 
 #endif
