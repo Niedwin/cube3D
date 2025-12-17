@@ -103,3 +103,13 @@ char	*remove_newline_n_spaces(char *str)
 	}
 	return (new);
 }
+
+char *skip_char(char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] == c)
+		i ++;
+	return (str + i);
+}

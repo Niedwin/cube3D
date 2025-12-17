@@ -35,11 +35,11 @@ void	check_ceilling(t_header *header, char *line, int *error, int i)
 }
 
 void	fill_floor(t_header *header, char *line, int *error, int i)
-{
-
+{	
+	skip_char(line + 2, ' ');
 }
 
 void	fill_ceiling(t_header *header, char *line, int *error, int i)
 {
-
+	skip_char(line + 2, ' ');
 }
