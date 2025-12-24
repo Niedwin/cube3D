@@ -24,8 +24,8 @@
 //STRUCTS//
 typedef struct	s_header
 {
-char ceiling[3];//saves each 0 to 255 color value as chars to save memory
-char floor[3];//might be NULL terminated or undoable because ascii limits
+char ceiling[4];//saves each 0 to 255 color value as chars to save memory
+char floor[4];//might be NULL terminated or undoable because ascii limits
 char *north_texture;
 char *south_texture;
 char *east_texture;
