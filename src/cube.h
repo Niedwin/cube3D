@@ -31,6 +31,7 @@ char *south_texture;
 char *east_texture;
 char *west_texture;
 }	t_header;
+
 //PROTOTYPES//
 
 #endif
