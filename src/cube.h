@@ -30,6 +30,8 @@ char *north_texture;
 char *south_texture;
 char *east_texture;
 char *west_texture;
+char **map;
+unsigned int pos[2];
 }	t_header;
 
 //PROTOTYPES//
