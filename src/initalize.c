@@ -6,7 +6,7 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 19:34:00 by guviure           #+#    #+#             */
-/*   Updated: 2026/01/13 16:13:43 by kguillem         ###   ########.fr       */
+/*   Updated: 2026/01/13 18:20:49 by kguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,14 @@ int	check_args_n_fd(int argc, char **argv)
 
 void	null_colors(t_header *header)
 {
-	header->ceiling[0] = NULL;
-	header->ceiling[1] = NULL;
-	header->ceiling[2] = NULL;
-	header->ceiling[3] = NULL;
-	header->floor[0] = NULL;
-	header->floor[1] = NULL;
-	header->floor[2] = NULL;
-	header->floor[3] = NULL;
+	header->ceiling[0] = 0;
+	header->ceiling[1] = 0;
+	header->ceiling[2] = 0;
+	header->ceiling[3] = 0;
+	header->floor[0] = 0;
+	header->floor[1] = 0;
+	header->floor[2] = 0;
+	header->floor[3] = 0;
 	return	;
 }
 
