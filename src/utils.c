@@ -6,10 +6,9 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 18:51:48 by guviure           #+#    #+#             */
-/*   Updated: 2025/12/10 19:26:26 by guviure          ###   ########.fr       */
+/*   Updated: 2026/01/13 13:47:01 by kguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "cube.h"
 //charset for map : " 01NSEW" subject indicate 6 but exemple shows 7 for spaces
