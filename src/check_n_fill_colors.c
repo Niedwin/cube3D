@@ -1,15 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_colors.c                                      :+:      :+:    :+:   */
+/*   check_n_fill_colors.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 22:04:21 by kguillem          #+#    #+#             */
-/*   Updated: 2025/12/10 19:25:52 by guviure          ###   ########.fr       */
+/*   Updated: 2026/01/13 15:03:29 by kguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+/*
 #include "cube.h"
 
 void	check_floor(t_header *header, char *line, int *error, int i)
@@ -46,4 +46,4 @@ void	fill_ceiling(t_header *header, char *line, int *error, int i)
 {
 	line = skip_char(line + 2, ' ');
 	//assess colors
-}
+}*/

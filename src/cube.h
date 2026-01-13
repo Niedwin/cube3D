@@ -6,7 +6,7 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 19:02:48 by guviure           #+#    #+#             */
-/*   Updated: 2026/01/13 13:45:00 by kguillem         ###   ########.fr       */
+/*   Updated: 2026/01/13 15:26:18 by kguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <stdlib.h>
-
+# include <unistd.h>
+/*
 //OTHER LIBRARIES//
 # include "Libft/libft.h"
 
@@ -33,7 +34,8 @@ char *west_texture;
 char **map;
 unsigned int pos[2];//store position of player to facilitate rendering
 }	t_header;
-
+*/
 //PROTOTYPES//
-
+int	check_args_n_fd(int argc, char **argv);
+int	check_postfix(char *source, char *postfix);
 #endif

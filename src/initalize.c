@@ -6,12 +6,12 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 19:34:00 by guviure           #+#    #+#             */
-/*   Updated: 2026/01/13 14:16:20 by kguillem         ###   ########.fr       */
+/*   Updated: 2026/01/13 15:38:19 by kguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
-
+/*
 int	checkpath_textures(char *prefix, char *path)
 {
 	int	fd;
@@ -28,7 +28,7 @@ int	checkpath_textures(char *prefix, char *path)
 		exit(1);
 	}
 	return (fd);
-}
+}*/
 
 int	check_args_n_fd(int argc, char **argv)
 {
@@ -36,23 +36,23 @@ int	check_args_n_fd(int argc, char **argv)
 
 	if (argc != 2 || argv[1][0] == '\0')
 	{
-		ft_printf("Error\n\nWrong amount of arguments\n");
+		printf("Error\n\nWrong amount of arguments\n");
 		exit(1);
 	}
- 	if (!check_postfix(argv[1]), ".cub")
+ 	if (!check_postfix(argv[1], ".cub"))
 	{
-		ft_printf("Error\n\nInvalid file extension, must be '.cub'\n");
+		printf("Error\n\nInvalid file extension, must be '.cub'\n");
 		exit(1);
 	}
 	fd = open(argv[1], 0, O_RDONLY);//not finished!!!
 	if (fd == -1)
 	{
-		ft_printf("Error\n\nCannot open the given '.cub'\n");
+		printf("Error\n\nCannot open the given '.cub'\n");
 		exit(1);
 	}
 	return (fd);
 }
-
+/*
 void	null_colors(t_header *header)
 {
 	header->ceiling[0] = NULL;
@@ -89,4 +89,4 @@ void	initialize_struct(t_header *header)//initialize all fields to NULL
 	null_textures(header);
 	null_map(header);
 	return ;
-}
+}*/

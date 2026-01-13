@@ -6,11 +6,11 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 18:51:48 by guviure           #+#    #+#             */
-/*   Updated: 2026/01/13 13:47:01 by kguillem         ###   ########.fr       */
+/*   Updated: 2026/01/13 15:16:13 by kguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "cube.h"/*
 //charset for map : " 01NSEW" subject indicate 6 but exemple shows 7 for spaces
 int	only_charset(char *str, char *set)//could indicate bad chars if needed
 {
@@ -34,16 +34,29 @@ int	only_charset(char *str, char *set)//could indicate bad chars if needed
 	return (1);
 }
 
-/*
+*
  * doesnt need to verify for a name before the extension, as the extension
  * itself count as a valid name.
  */
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str)
+	{
+		while (str[i])
+			i ++;
+	}
+	return (i);
+}
+
 int	check_postfix(char *source, char *postfix)
 {
 	int	i;
 	int	j;
 
-	if (ft_strlen(postfix) > source)
+	if (ft_strlen(postfix) > ft_strlen(source))
 		return (0);
 	i = ft_strlen(source) - ft_strlen(postfix);
 	j = 0;
@@ -56,7 +69,7 @@ int	check_postfix(char *source, char *postfix)
 	}
 	return (1);
 }
-
+/*
 int	count_charset(char *str, char *charset)
 {
 	int	i;
@@ -111,4 +124,4 @@ char *skip_char(char *str, char c)
 	while (str[i] == c)
 		i ++;
 	return (str + i);
-}
+}*/

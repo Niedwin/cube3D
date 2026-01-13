@@ -6,19 +6,18 @@
 /*   By: kguillem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 13:40:37 by kguillem          #+#    #+#             */
-/*   Updated: 2026/01/13 13:40:41 by kguillem         ###   ########.fr       */
+/*   Updated: 2026/01/13 15:37:53 by kguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "CUBE_H"
+#include "cube.h"
 
 int	main(int argc, char **argv)
 {
 	int	fd;
 
 	fd = check_args_n_fd(argc, argv);
-	//read header -> try open n read textures associated
-	//read n process map
-	//minilibX time
+	printf("fd is : %d !", fd);
+	close(fd);
 	return (0);
 }

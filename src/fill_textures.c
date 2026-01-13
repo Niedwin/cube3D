@@ -6,10 +6,10 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 19:38:50 by kguillem          #+#    #+#             */
-/*   Updated: 2025/12/10 19:25:19 by guviure          ###   ########.fr       */
+/*   Updated: 2026/01/13 15:04:06 by kguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+/*
 #include "cube.h"
 
 void	check_north(t_header *header, char *line, int *error, int i)
@@ -62,4 +62,4 @@ void	check_east(t_header *header, char *line, int *error, int i)
 			*error ++;
 		}
 	}
-}
+}*/

@@ -6,19 +6,19 @@
 /*   By: kguillem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 13:46:37 by kguillem          #+#    #+#             */
-/*   Updated: 2026/01/13 13:47:01 by kguillem         ###   ########.fr       */
+/*   Updated: 2026/01/13 15:07:00 by kguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+/*
 #include "CUBE_H"
-/* ................................ONGOING.....................................
+* ................................ONGOING.....................................
  * target an empty space on the map, checks every neighboors of said empty space
  * if adjacent spaces are neither filled with walls or other empty space
  * map is not closed
  *
  * may be better to use whitespaces next to other valid chars to do the checks
  * to reduce the amount of checks to only the perimeter
- */
+ *
 int	closed_map(char **map)
 {
 	int	x;
@@ -30,11 +30,11 @@ int	closed_map(char **map)
 }
 
 
-/*
+*
  * verify the map when there are no whitespaces, such as no open spaces in
  * column 0, no open spaces at max width'
  *
- */
+ *
 void	verify_exceptions(char **map, int height, int *error)
 {
 	int	i;
@@ -56,7 +56,7 @@ void	verify_perimeter(char **map, int height, int *error)
 int	
 }
 
-/*
+*
  * aims to fill a struct with all fields initialized to NULL for char *paths
  * or -1 for integers to give a warning
  * when any field is already set as to avoid doubles attributes in the "header"
@@ -64,7 +64,7 @@ int
  * whenever a path is set, tries to open said path after filling its field
  * so that the error count doesnt count both the field being empty and being
  * unopenable.
- */
+ *
 void	verify_header(int fd, int *error)
 {
 	int	i;
@@ -114,4 +114,4 @@ void	fill_fields(struct *, char *line, int *error, int i)
 		*error ++;
 		printf("Error\nInvalid line found at : %i\n", i);
 	}
-}
+}*/
