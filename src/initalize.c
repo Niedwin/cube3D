@@ -6,7 +6,7 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 19:34:00 by guviure           #+#    #+#             */
-/*   Updated: 2026/01/13 15:38:19 by kguillem         ###   ########.fr       */
+/*   Updated: 2026/01/13 16:13:43 by kguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	check_args_n_fd(int argc, char **argv)
 	}
 	return (fd);
 }
-/*
+
 void	null_colors(t_header *header)
 {
 	header->ceiling[0] = NULL;
@@ -89,4 +89,4 @@ void	initialize_struct(t_header *header)//initialize all fields to NULL
 	null_textures(header);
 	null_map(header);
 	return ;
-}*/
+}
