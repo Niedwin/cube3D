@@ -6,7 +6,7 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 18:51:48 by guviure           #+#    #+#             */
-/*   Updated: 2025/12/10 19:26:26 by guviure          ###   ########.fr       */
+/*   Updated: 2026/01/15 03:15:11 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	check_postfix(char *source, char *postfix)
 	int	i;
 	int	j;
 
-	if (ft_strlen(postfix) > source)
+	//if (ft_strlen(postfix) > source)
 		return (0);
 	i = ft_strlen(source) - ft_strlen(postfix);
 	j = 0;
@@ -102,4 +102,19 @@ char	*remove_newline_n_spaces(char *str)
 		to_remove --;
 	}
 	return (new);
+}
+
+void render_frame(t_game *game)
+{
+    fill_screen(&game->img, 0x00333333);
+    raycast(game);
+    mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
+}
+
+
+void exit_error(char *msg)
+{
+    if (msg)
+        printf("%s\n", msg);
+    exit(1);
 }

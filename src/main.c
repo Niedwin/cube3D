@@ -12,24 +12,17 @@
 
 #include "cube.h"
 
-int	close_window(void *param)
-	{
-	(void)param;
-	exit(0);
-	}
-
-void	put_pixel(char *addr, int line_len, int bpp, int x, int y, int color)
+int close_window(t_game *game)
 {
-	char *pixel;
-
-	pixel = addr + (y * line_len + x * (bpp / 8));
-	*(unsigned int *)pixel = color;
+	mlx_destroy_window(game->mlx, game->win);
+	exit(0);
 }
 
-void	fill_screen(char *addr, int line_len, int bpp, int color)
+
+void	fill_screen(t_img *img, int color)
 {
-	int	y;
 	int	x;
+	int	y;
 
 	y = 0;
 	while (y < screenHeight)
@@ -37,35 +30,86 @@ void	fill_screen(char *addr, int line_len, int bpp, int color)
 		x = 0;
 		while (x < screenWidth)
 		{
-			put_pixel(addr, line_len, bpp, x, y, color);
+			put_pixel(img, x, y, color);
 			x++;
 		}
 		y++;
 	}
 }
 
-	
+void	init_hooks(t_game *game)
+{
+	ft_bzero(game->key_press, sizeof(int) * KEY_COUNT);
+	mlx_hook(game->win, 2, 1L<<0, key_press, game);
+	mlx_hook(game->win, 3, 1L<<1, key_release, game);
+	mlx_hook(game->win, 17, 0, close_window, game);
+	mlx_loop_hook(game->mlx, game_loop, game);
+}
+
+void put_pixel(t_img *img, int x, int y, int color)
+{
+    if (x < 0 || x >= screenWidth || y < 0 || y >= screenHeight)
+        return;
+    char *pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
+    *(unsigned int *)pixel = color;
+}
+
+char **map_tab_malloc(int height, int width, char *map_tab_src[])
+{
+    int i;
+    char **tab = malloc(sizeof(char*) * height);
+    if (!tab)
+        exit(1);
+    for (i = 0; i < height; i++)
+    {
+        tab[i] = malloc(sizeof(char) * (width + 1));
+        if (!tab[i])
+            exit(1);
+        ft_strlcpy(tab[i], map_tab_src[i], width + 1);
+    }
+    return tab;
+}
+
+
 int	main(int argc, char **argv)
 {
-	//int	fd;
+	t_game	game;
+
 	(void)argc;
 	(void)argv;
-	void	*mlx;
-	void	*mlx_win;
-	void	*img;
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, screenWidth, screenHeight, "cube3D");
-	mlx_hook(mlx_win, 17, 0, close_window, NULL);
-	fill_screen(addr, line_len, bpp, 0x00FF0000);
-	mlx_put_image_to_window(mlx, mlx_win, img, 0, 0);
-	mlx_loop(mlx);
-	img = mlx_new_image(mlx, screenWidth, screenHeight);
-	addr = mlx_get_data_addr(img, &bpp, &line_len, &endian);
+	char *map_tab_src[] = {
+    "111111111111111111111111",
+    "100000000000000000000001",
+    "100000000000000000000001",
+    "10000000000N000000000001",
+    "100000000000000000000001",
+    "111111111111111111111111",
+};
 
-	//fd = check_args_n_fd(argc, argv);
-	//read header -> try open n read textures associated
-	//read n process map
-	//minilibX time
+game.map.Heightmap = 6;
+game.map.Widthmap = 24;
+game.map.map_tab = map_tab_malloc(game.map.Heightmap, game.map.Widthmap, map_tab_src);
+
+	game.mlx = mlx_init();
+	game.win = mlx_new_window(game.mlx, screenWidth, screenHeight, "cube3D");
+	game.img.img = mlx_new_image(game.mlx, screenWidth, screenHeight);
+	game.img.addr = mlx_get_data_addr(game.img.img,
+			&game.img.bpp, &game.img.line_len, &game.img.endian);
+
+	init_player(&game);   // ← maintenant il verra le 'N'
+
+	init_hooks(&game);
+
+	printf("Player pos: %.2f %.2f\n", game.player.x, game.player.y);
+	printf("Dir: %.2f %.2f\n", game.player.dir_x, game.player.dir_y);
+	printf("Plane: %.2f %.2f\n", game.player.plane_x, game.player.plane_y);
+
+	render_frame(&game);  // pour afficher la première frame
+
+	mlx_loop(game.mlx);
 	return (0);
 }
+
+
+

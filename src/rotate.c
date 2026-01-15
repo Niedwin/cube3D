@@ -1,0 +1,49 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rotate.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/14 23:58:28 by guviure           #+#    #+#             */
+/*   Updated: 2026/01/15 02:39:11 by guviure          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cube.h"
+
+void	rotate_left (t_game *game)
+{
+	double	old_dir_x;
+	double	old_plane_x;
+	
+	old_dir_x = game->player.dir_x;
+	game->player.dir_x = game->player.dir_x * cos(-ROT_SPEED)
+		- game->player.dir_y * sin(-ROT_SPEED);
+	game->player.dir_y = old_dir_x * sin(-ROT_SPEED)
+		+ game->player.dir_y * cos(-ROT_SPEED);
+	
+	old_plane_x = game->player.plane_x;
+	game->player.plane_x = game->player.plane_x * cos(-ROT_SPEED)
+		- game->player.plane_y * sin(-ROT_SPEED);
+	game->player.plane_y = old_plane_x * sin(-ROT_SPEED)
+		+ game->player.plane_y * cos(-ROT_SPEED);
+}
+
+void	rotate_right(t_game *game)
+{
+	double	old_dir_x;
+	double	old_plane_x;
+	
+	old_dir_x = game->player.dir_x;
+	game->player.dir_x = game->player.dir_x * cos(ROT_SPEED)
+		- game->player.dir_y * sin(ROT_SPEED);
+	game->player.dir_y = old_dir_x * sin(ROT_SPEED)
+		+ game->player.dir_y * cos(ROT_SPEED);
+	
+	old_plane_x = game->player.plane_x;
+	game->player.plane_x = game->player.plane_x * cos(ROT_SPEED)
+		- game->player.plane_y * sin(ROT_SPEED);
+	game->player.plane_y = old_plane_x * sin(ROT_SPEED)
+		+ game->player.plane_y * cos(ROT_SPEED);
+}

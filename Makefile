@@ -46,4 +46,6 @@ fclean: clean
 
 re: fclean all
 
+bonus:
+
 .PHONY: all libft mlx clean fclean re
