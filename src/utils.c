@@ -6,10 +6,9 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 18:51:48 by guviure           #+#    #+#             */
-/*   Updated: 2026/01/15 03:15:11 by guviure          ###   ########.fr       */
+/*   Updated: 2026/01/17 19:37:51 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "cube.h"
 //charset for map : " 01NSEW" subject indicate 6 but exemple shows 7 for spaces
@@ -43,9 +42,8 @@ int	check_postfix(char *source, char *postfix)
 {
 	int	i;
 	int	j;
-
 	//if (ft_strlen(postfix) > source)
-		return (0);
+	//	return (0);
 	i = ft_strlen(source) - ft_strlen(postfix);
 	j = 0;
 	while (source[i])
@@ -83,8 +81,8 @@ int	count_charset(char *str, char *charset)
 //might be better to not touch the path in case the spaces beetween are useful
 char	*remove_newline_n_spaces(char *str)
 {
-	int	i;
-	int	to_remove;
+	int		i;
+	int		to_remove;
 	char	*new;
 
 	i = ft_strlen(str);//need to make either a cast or change func return type
@@ -104,17 +102,16 @@ char	*remove_newline_n_spaces(char *str)
 	return (new);
 }
 
-void render_frame(t_game *game)
+void	render_frame(t_game *game)
 {
-    fill_screen(&game->img, 0x00333333);
-    raycast(game);
-    mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
+	fill_screen(&game->img, 0x00333333);
+	raycast(game);
+	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 }
 
-
-void exit_error(char *msg)
+void	exit_error(char *msg)
 {
-    if (msg)
-        printf("%s\n", msg);
-    exit(1);
+	if (msg)
+		printf("%s\n", msg);
+	exit(1);
 }

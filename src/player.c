@@ -10,39 +10,58 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "cube.h"
 
-void	set_direction(t_game *g, char c)
+static void	set_ns_direction(t_player *p, char c)
 {
 	if (c == 'N')
 	{
-		g->player.dir_x = 0;
-		g->player.dir_y = -1;
-		g->player.plane_x = 0.66;
-		g->player.plane_y = 0;
+		p->dir_x = 0;
+		p->dir_y = -1;
+		p->plane_x = 0.66;
+		p->plane_y = 0;
 	}
 	else if (c == 'S')
 	{
-		g->player.dir_x = 0;
-		g->player.dir_y = 1;
-		g->player.plane_x = -0.66;
-		g->player.plane_y = 0;
+		p->dir_x = 0;
+		p->dir_y = 1;
+		p->plane_x = -0.66;
+		p->plane_y = 0;
 	}
-	else if (c == 'E')
+}
+
+static void	set_ew_direction(t_player *p, char c)
+{
+	if (c == 'E')
 	{
-		g->player.dir_x = 1;
-		g->player.dir_y = 0;
-		g->player.plane_x = 0;
-		g->player.plane_y = 0.66;
+		p->dir_x = 1;
+		p->dir_y = 0;
+		p->plane_x = 0;
+		p->plane_y = 0.66;
 	}
 	else if (c == 'W')
 	{
-		g->player.dir_x = -1;
-		g->player.dir_y = 0;
-		g->player.plane_x = 0;
-		g->player.plane_y = -0.66;
+		p->dir_x = -1;
+		p->dir_y = 0;
+		p->plane_x = 0;
+		p->plane_y = -0.66;
 	}
+}
+
+void	set_direction(t_game *g, char c)
+{
+	if (c == 'N' || c == 'S')
+		set_ns_direction(&g->player, c);
+	else if (c == 'E' || c == 'W')
+		set_ew_direction(&g->player, c);
+}
+
+static void	set_player(t_game *g, int x, int y, char c)
+{
+	g->player.x = x + 0.5;
+	g->player.y = y + 0.5;
+	set_direction(g, c);
+	g->map.map_tab[y][x] = '0';
 }
 
 void	init_player(t_game *g)
@@ -52,8 +71,8 @@ void	init_player(t_game *g)
 	int		found;
 	char	c;
 
-	found = 0;
 	y = 0;
+	found = 0;
 	while (y < g->map.Heightmap)
 	{
 		x = 0;
@@ -64,10 +83,7 @@ void	init_player(t_game *g)
 			{
 				if (found++)
 					exit_error("Error\nMultiple players");
-				g->player.x = x + 0.5;
-				g->player.y = y + 0.5;
-				set_direction(g, c);
-				g->map.map_tab[y][x] = '0';
+				set_player(g, x, y, c);
 			}
 			x++;
 		}
