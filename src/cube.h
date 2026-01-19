@@ -37,7 +37,8 @@ unsigned int pos[2];//store position of player to facilitate rendering
 }	t_header;
 
 //PROTOTYPES//
-int	check_args_n_fd(int argc, char **argv);
-int	check_postfix(char *source, char *postfix);
+int		check_args_n_fd(int argc, char **argv);
+int		check_postfix(char *source, char *postfix);
+
 void	initialize_struct(t_header *header);
 #endif

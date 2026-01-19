@@ -64,7 +64,7 @@ int
  * whenever a path is set, tries to open said path after filling its field
  * so that the error count doesnt count both the field being empty and being
  * unopenable.
- *
+ */
 void	verify_header(int fd, int *error)
 {
 	int	i;
@@ -114,4 +114,4 @@ void	fill_fields(struct *, char *line, int *error, int i)
 		*error ++;
 		printf("Error\nInvalid line found at : %i\n", i);
 	}
-}*/
+}
