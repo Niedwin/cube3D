@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize.c                                       :+:      :+:    :+:   */
+/*   initalize.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 19:34:00 by guviure           #+#    #+#             */
-/*   Updated: 2026/01/17 19:20:22 by guviure          ###   ########.fr       */
+/*   Updated: 2025/12/10 19:34:43 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	check_args_n_fd(int argc, char **argv)
 		ft_printf("Error\n\nWrong amount of arguments\n");
 		exit(1);
 	}
- 		if (!check_postfix(argv[1]), ".cub")
+ 	if (!check_postfix(argv[1]), ".cub")
 	{
 		ft_printf("Error\n\nInvalid file extension, must be '.cub'\n");
 		exit(1);

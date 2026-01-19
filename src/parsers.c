@@ -1,17 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsers.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/14 22:32:51 by guviure           #+#    #+#             */
-/*   Updated: 2026/01/14 22:32:52 by guviure          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
-
-#include "cube.h"
+#include "CUBE_H"
 /* ................................ONGOING.....................................
  * target an empty space on the map, checks every neighboors of said empty space
  * if adjacent spaces are neither filled with walls or other empty space
