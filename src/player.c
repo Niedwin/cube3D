@@ -16,17 +16,17 @@ static void	set_ns_direction(t_player *p, char c)
 {
 	if (c == 'N')
 	{
-		p->dir_x = 0;
-		p->dir_y = -1;
-		p->plane_x = 0.66;
-		p->plane_y = 0;
+		p->dir.x = 0;
+		p->dir.y = -1;
+		p->plane.x = 0.66;
+		p->plane.y = 0;
 	}
 	else if (c == 'S')
 	{
-		p->dir_x = 0;
-		p->dir_y = 1;
-		p->plane_x = -0.66;
-		p->plane_y = 0;
+		p->dir.x = 0;
+		p->dir.y = 1;
+		p->plane.x = -0.66;
+		p->plane.y = 0;
 	}
 }
 
@@ -34,17 +34,17 @@ static void	set_ew_direction(t_player *p, char c)
 {
 	if (c == 'E')
 	{
-		p->dir_x = 1;
-		p->dir_y = 0;
-		p->plane_x = 0;
-		p->plane_y = 0.66;
+		p->dir.x = 1;
+		p->dir.y = 0;
+		p->plane.x = 0;
+		p->plane.y = 0.66;
 	}
 	else if (c == 'W')
 	{
-		p->dir_x = -1;
-		p->dir_y = 0;
-		p->plane_x = 0;
-		p->plane_y = -0.66;
+		p->dir.x = -1;
+		p->dir.y = 0;
+		p->plane.x = 0;
+		p->plane.y = -0.66;
 	}
 }
 
@@ -58,8 +58,8 @@ void	set_direction(t_game *g, char c)
 
 static void	set_player(t_game *g, int x, int y, char c)
 {
-	g->player.x = x + 0.5;
-	g->player.y = y + 0.5;
+	g->player.pos.x = x + 0.5;
+	g->player.pos.y = y + 0.5;
 	set_direction(g, c);
 	g->map.map_tab[y][x] = '0';
 }
@@ -82,7 +82,7 @@ void	init_player(t_game *g)
 			if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 			{
 				if (found++)
-					exit_error("Error\nMultiple players");
+					exit_error("Error\nMultiple players", g);
 				set_player(g, x, y, c);
 			}
 			x++;
@@ -90,5 +90,5 @@ void	init_player(t_game *g)
 		y++;
 	}
 	if (!found)
-		exit_error("Error\nNo player");
+		exit_error("Error\nNo player", g);
 }

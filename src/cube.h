@@ -41,6 +41,13 @@
 # include "../Libft/libft.h"
 
 //STRUCTS//
+
+typedef struct s_vec2
+{
+	double	x;
+	double	y;
+}	t_vec2;
+
 typedef struct s_img
 {
 	void	*img;
@@ -51,6 +58,14 @@ typedef struct s_img
 	int		width;
 	int		height;
 }	t_img;
+
+typedef struct s_textures
+{
+	t_img	no;
+	t_img	so;
+	t_img	we;
+	t_img	ea;
+}	t_textures;
 
 typedef struct s_map
 {
@@ -65,20 +80,22 @@ typedef struct s_map
 	char	*ea_path;
 }	t_map;
 
+typedef struct s_player
+{
+	t_vec2	pos;
+	t_vec2	dir;
+	t_vec2	plane;
+}	t_player;
+
 typedef struct s_ray
 {
+	t_vec2	ray_dir;
+	t_vec2	side_dist;
+	t_vec2	delta_dist;
+	t_vec2	map;
+	t_vec2	step;
 	double	camera_x;
-	double	ray_dir_x;
-	double	ray_dir_y;
-	int		map_x;
-	int		map_y;
-	double	side_dist_x;
-	double	side_dist_y;
-	double	delta_dist_x;
-	double	delta_dist_y;
 	double	perp_wall_dist;
-	int		step_x;
-	int		step_y;
 	int		side;
 }	t_ray;
 
@@ -87,30 +104,16 @@ typedef struct s_draw
 	int	x;
 	int	start;
 	int	end;
-
 }	t_draw;
-
-typedef struct s_player
-{
-	double	x;
-	double	y;
-	double	dir_x;
-	double	dir_y;
-	double	plane_x;
-	double	plane_y;
-}	t_player;
 
 typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
-	t_img		img;
+	t_img		screen;
 	t_map		map;
 	t_player	player;
-	t_img		tex_no;
-	t_img		tex_so;
-	t_img		tex_we;
-	t_img		tex_ea;
+	t_textures	tex;
 	int			key_press[KEY_COUNT];
 	int			rot_left;
 	int			rot_right;
@@ -132,19 +135,25 @@ void	rotate_left(t_game *game);
 void	rotate_right(t_game *game);
 void	render_frame(t_game *game);
 int		close_window(t_game *game);
-void	exit_error(char *msg);
 void	put_pixel(t_img *img, int x, int y, int color);
-void	exit_error(char *msg);
 void	fill_screen(t_img *img, int color);
 void	load_texture(t_game *g, t_img *tex, char *path);
 void	load_all_textures(t_game *g);
 int		parse_rgb(char *line);
-void	parse_textures_colors(t_map *map, char *cub_path);
 t_img	*choose_texture(t_game *g, t_ray *r);
 int		calc_tex_x(t_ray *r, t_img *tex, t_game *g);
 int		get_tex_color(t_game *g, t_ray *r, t_draw d, int y);
 void	draw_floor_ceiling(t_game *g, t_draw d);
 void	draw_wall(t_game *g, t_ray *r, t_draw d);
+void 	free_map_tab(t_map *map);
+void	free_map_paths(t_map *map);
+void	free_img(void *mlx, t_img *img);
+void	free_textures(t_game *game);
+void	free_screen(t_game *game);
+void	free_mlx(t_game *game);
+void	cleanup(t_game *game);
+void	exit_error(char *msg, t_game *game);
+void	parse_textures_colors(t_map *map, char *cub_path, t_game *g);
 
 
 

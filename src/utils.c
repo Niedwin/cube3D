@@ -6,7 +6,7 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 18:51:48 by guviure           #+#    #+#             */
-/*   Updated: 2026/01/19 02:20:07 by guviure          ###   ########.fr       */
+/*   Updated: 2026/01/21 20:47:52 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,14 +104,7 @@ char	*remove_newline_n_spaces(char *str)
 
 void	render_frame(t_game *game)
 {
-	fill_screen(&game->img, 0x00333333);
+	fill_screen(&game->screen, 0x00333333);
 	raycast(game);
-	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
-}
-
-void	exit_error(char *msg)
-{
-	if (msg)
-		printf("%s\n", msg);
-	exit(1);
+	mlx_put_image_to_window(game->mlx, game->win, game->screen.img, 0, 0);
 }

@@ -14,7 +14,8 @@ SRC = src/main.c \
       src/raycast.c \
       src/raycast_utils.c \
       src/utils.c \
-      src/fill_textures.c
+      src/fill_textures.c \
+      src/free.c
 
 all: $(NAME)
 

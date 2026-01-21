@@ -14,9 +14,20 @@
 
 int	close_window(t_game *game)
 {
-	mlx_destroy_window(game->mlx, game->win);
+	cleanup(game);
 	exit(0);
 }
+
+void	exit_error(char *msg, t_game *game)
+{
+	if (game)
+		cleanup(game);
+	ft_putstr_fd("Error\n", 2);
+	ft_putendl_fd(msg, 2);
+	exit(1);
+}
+
+/* ---------------- DRAWING ---------------- */
 
 void	put_pixel(t_img *img, int x, int y, int color)
 {
@@ -46,6 +57,8 @@ void	fill_screen(t_img *img, int color)
 	}
 }
 
+/* ---------------- HOOKS ---------------- */
+
 void	init_hooks(t_game *game)
 {
 	ft_bzero(game->key_press, sizeof(int) * KEY_COUNT);
@@ -55,10 +68,11 @@ void	init_hooks(t_game *game)
 	mlx_loop_hook(game->mlx, game_loop, game);
 }
 
-// ---------------- TEMP MAP ----------------
-char	**load_test_map(t_map *map)
+/* ---------------- TEMP MAP ---------------- */
+
+char **load_test_map(t_map *map)
 {
-	static char	*map_tmp[] = {
+    static char *map_tmp[] = {
         "111111111111111111111111",
         "100000000000000000000001",
         "100000000000000000000001",
@@ -66,56 +80,66 @@ char	**load_test_map(t_map *map)
         "100000000000000000000001",
         "111111111111111111111111"
     };
-    int i;
     char **tab;
+    int i;
 
     map->heightmap = 6;
     map->widthmap = 24;
     tab = malloc(sizeof(char *) * map->heightmap);
     if (!tab)
-        exit(1);
-    i = 0;
-    while (i < map->heightmap)
+        exit_error("malloc failed", NULL);
+    for (i = 0; i < map->heightmap; i++)
     {
         tab[i] = ft_strdup(map_tmp[i]);
-        i++;
+        if (!tab[i])
+        {
+            while (i-- > 0) // free ce qui a été alloué avant
+                free(tab[i]);
+            free(tab);
+            exit_error("ft_strdup failed", NULL);
+        }
     }
     return tab;
 }
 
-// ---------------- MAIN ----------------
+/* ---------------- MAIN ---------------- */
+
 int main(int argc, char **argv)
 {
-    t_game game;
+	t_game	*game;
 
-    (void)argc;
-    (void)argv;
-    ft_bzero(&game, sizeof(t_game));
+	(void)argc;
+	(void)argv;
 
-    // --- map et textures ---
-    game.map.map_tab = load_test_map(&game.map);
-    game.map.no_path = "textures/bluestone.xpm";
-    game.map.so_path = "textures/purplestone.xpm";
-    game.map.we_path = "textures/mossy.xpm";
-    game.map.ea_path = "textures/redbrick.xpm";
-    game.map.f_rgb = 0x00B8712A; // sol vert
-    game.map.c_rgb = 0x0033C6E3; // ciel bleu
+	game = malloc(sizeof(t_game));
+	if (!game)
+		exit_error("malloc failed", NULL);
+	ft_bzero(game, sizeof(t_game));
 
-    // --- mlx ---
-    game.mlx = mlx_init();
-    if (!game.mlx)
-        exit_error("mlx_init failed");
-    game.win = mlx_new_window(game.mlx, SCREENWIDTH, SCREENHEIGHT, "cub3D");
-    game.img.img = mlx_new_image(game.mlx, SCREENWIDTH, SCREENHEIGHT);
-    game.img.addr = mlx_get_data_addr(game.img.img,
-            &game.img.bpp, &game.img.line_len, &game.img.endian);
+	// --- map et textures ---
+	game->map.map_tab = load_test_map(&game->map);
+	game->map.no_path = ft_strdup("textures/bluestone.xpm");
+	game->map.so_path = ft_strdup("textures/purplestone.xpm");
+	game->map.we_path = ft_strdup("textures/mossy.xpm");
+	game->map.ea_path = ft_strdup("textures/redbrick.xpm");
+	game->map.f_rgb = 0x00B8712A; // sol vert
+	game->map.c_rgb = 0x0033C6E3; // ciel bleu
 
-    // --- initialisation ---
-    init_player(&game);
-    load_all_textures(&game); // charge les 4 textures
-    render_frame(&game);
-    init_hooks(&game);
+	// --- mlx ---
+	game->mlx = mlx_init();
+	if (!game->mlx)
+		exit_error("mlx_init failed", game);
+	game->win = mlx_new_window(game->mlx, SCREENWIDTH, SCREENHEIGHT, "cub3D");
+	game->screen.img = mlx_new_image(game->mlx, SCREENWIDTH, SCREENHEIGHT);
+	game->screen.addr = mlx_get_data_addr(game->screen.img,
+			&game->screen.bpp, &game->screen.line_len, &game->screen.endian);
 
-    mlx_loop(game.mlx);
-    return (0);
+	// --- initialisation ---
+	init_player(game);
+	load_all_textures(game); // charge les 4 textures
+	render_frame(game);
+	init_hooks(game);
+
+	mlx_loop(game->mlx);
+	return (0);
 }

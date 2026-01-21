@@ -12,44 +12,46 @@
 
 #include "cube.h"
 
+#include "cube.h"
+
 static void	init_ray(t_game *g, t_ray *r, int x)
 {
 	r->camera_x = 2 * x / (double)SCREENWIDTH - 1;
-	r->ray_dir_x = g->player.dir_x + g->player.plane_x * r->camera_x;
-	r->ray_dir_y = g->player.dir_y + g->player.plane_y * r->camera_x;
-	r->map_x = (int)g->player.x;
-	r->map_y = (int)g->player.y;
-	if (r->ray_dir_x == 0)
-		r->delta_dist_x = 1e30;
+	r->ray_dir.x = g->player.dir.x + g->player.plane.x * r->camera_x;
+	r->ray_dir.y = g->player.dir.y + g->player.plane.y * r->camera_x;
+	r->map.x = (int)g->player.pos.x;
+	r->map.y = (int)g->player.pos.y;
+	if (r->ray_dir.x == 0)
+		r->delta_dist.x = 1e30;
 	else
-		r->delta_dist_x = fabs(1 / r->ray_dir_x);
-	if (r->ray_dir_y == 0)
-		r->delta_dist_y = 1e30;
+		r->delta_dist.x = fabs(1 / r->ray_dir.x);
+	if (r->ray_dir.y == 0)
+		r->delta_dist.y = 1e30;
 	else
-		r->delta_dist_y = fabs(1 / r->ray_dir_y);
+		r->delta_dist.y = fabs(1 / r->ray_dir.y);
 }
 
 static void	init_step(t_game *g, t_ray *r)
 {
-	if (r->ray_dir_x < 0)
+	if (r->ray_dir.x < 0)
 	{
-		r->step_x = -1;
-		r->side_dist_x = (g->player.x - r->map_x) * r->delta_dist_x;
+		r->step.x = -1;
+		r->side_dist.x = (g->player.pos.x - r->map.x) * r->delta_dist.x;
 	}
 	else
 	{
-		r->step_x = 1;
-		r->side_dist_x = (r->map_x + 1.0 - g->player.x) * r->delta_dist_x;
+		r->step.x = 1;
+		r->side_dist.x = (r->map.x + 1.0 - g->player.pos.x) * r->delta_dist.x;
 	}
-	if (r->ray_dir_y < 0)
+	if (r->ray_dir.y < 0)
 	{
-		r->step_y = -1;
-		r->side_dist_y = (g->player.y - r->map_y) * r->delta_dist_y;
+		r->step.y = -1;
+		r->side_dist.y = (g->player.pos.y - r->map.y) * r->delta_dist.y;
 	}
 	else
 	{
-		r->step_y = 1;
-		r->side_dist_y = (r->map_y + 1.0 - g->player.y) * r->delta_dist_y;
+		r->step.y = 1;
+		r->side_dist.y = (r->map.y + 1.0 - g->player.pos.y) * r->delta_dist.y;
 	}
 }
 
@@ -58,21 +60,25 @@ static void	perform_dda(t_game *g, t_ray *r)
 	int	hit;
 
 	hit = 0;
-	while (hit == 0)
+	while (!hit)
 	{
-		if (r->side_dist_x < r->side_dist_y)
+		if (r->side_dist.x < r->side_dist.y)
 		{
-			r->side_dist_x += r->delta_dist_x;
-			r->map_x += r->step_x;
+			r->side_dist.x += r->delta_dist.x;
+			r->map.x += r->step.x;
 			r->side = 0;
 		}
 		else
 		{
-			r->side_dist_y += r->delta_dist_y;
-			r->map_y += r->step_y;
+			r->side_dist.y += r->delta_dist.y;
+			r->map.y += r->step.y;
 			r->side = 1;
 		}
-		if (g->map.map_tab[r->map_y][r->map_x] == '1')
+		if (r->map.x < 0 || r->map.y < 0
+			|| r->map.x >= g->map.widthmap
+			|| r->map.y >= g->map.heightmap)
+			exit_error("Error\nRay went out of map bounds", g);
+		if (g->map.map_tab[(int)r->map.y][(int)r->map.x] == '1')
 			hit = 1;
 	}
 }
@@ -82,12 +88,16 @@ static void	calc_wall_height(t_ray *r, int *start, int *end)
 	int	line_height;
 
 	if (r->side == 0)
-		r->perp_wall_dist = r->side_dist_x - r->delta_dist_x;
+		r->perp_wall_dist = r->side_dist.x - r->delta_dist.x;
 	else
-		r->perp_wall_dist = r->side_dist_y - r->delta_dist_y;
+		r->perp_wall_dist = r->side_dist.y - r->delta_dist.y;
 	line_height = (int)(SCREENHEIGHT / r->perp_wall_dist);
 	*start = -line_height / 2 + SCREENHEIGHT / 2;
 	*end = line_height / 2 + SCREENHEIGHT / 2;
+	if (*start < 0)
+		*start = 0;
+	if (*end >= SCREENHEIGHT)
+		*end = SCREENHEIGHT - 1;
 }
 
 void	raycast(t_game *g)

@@ -6,7 +6,7 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 19:38:50 by kguillem          #+#    #+#             */
-/*   Updated: 2026/01/19 01:34:18 by guviure          ###   ########.fr       */
+/*   Updated: 2026/01/21 20:46:08 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	load_texture(t_game *g, t_img *tex, char *path)
 
 void	load_all_textures(t_game *g)
 {
-	load_texture(g, &g->tex_no, g->map.no_path);
-	load_texture(g, &g->tex_so, g->map.so_path);
-	load_texture(g, &g->tex_we, g->map.we_path);
-	load_texture(g, &g->tex_ea, g->map.ea_path);
+	load_texture(g, &g->tex.no, g->map.no_path);
+	load_texture(g, &g->tex.so, g->map.so_path);
+	load_texture(g, &g->tex.we, g->map.we_path);
+	load_texture(g, &g->tex.ea, g->map.ea_path);
 }
 
 int	parse_rgb(char *line)
@@ -51,14 +51,14 @@ int	parse_rgb(char *line)
 }
 
 // Parsing des textures et couleurs
-void	parse_textures_colors(t_map *map, char *cub_path)
+void	parse_textures_colors(t_map *map, char *cub_path, t_game *g)
 {
 	int		fd;
 	char	*line;
 
 	fd = open(cub_path, O_RDONLY);
 	if (fd < 0)
-		exit_error("Error opening .cub file");
+		exit_error("Error opening .cub file", g);
 	while (1)
 	{
 		line = ft_get_next_line(fd);
@@ -70,7 +70,7 @@ void	parse_textures_colors(t_map *map, char *cub_path)
 			map->so_path = ft_strdup(line + 3);
 		else if (!ft_strncmp(line, "WE ", 3))
 			map->we_path = ft_strdup(line + 3);
-		else if (!ft_strncmp(line, "SE ", 3))
+		else if (!ft_strncmp(line, "EA ", 3))
 			map->ea_path = ft_strdup(line + 3);
 		else if (line[0] == 'F')
 			map->f_rgb = parse_rgb(line + 2);
