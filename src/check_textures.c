@@ -9,7 +9,7 @@
 /*   Updated: 2026/01/13 15:03:40 by kguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-/*
+
 #include "cube.h"
 
 void	check_north(t_header *header, char *line, int *error, int i)
@@ -54,4 +54,4 @@ void	check_east(t_header *header, char *line, int *error, int i)
 		printf("Error\nMultiple attribution for 'EA' at line %i\n", i);
 		*error ++;
 	}
-}*/
+}

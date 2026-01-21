@@ -9,12 +9,12 @@
 /*   Updated: 2026/01/13 15:03:29 by kguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-/*
+
 #include "cube.h"
 
 void	check_floor(t_header *header, char *line, int *error, int i)
 {
-	if (header->floor[3] == NULL)//verify said field to proceed only if empty
+	if (header->floor[3] == 0)//verify said field to proceed only if empty
 		fill_floor(header, line, error, i);//fill associated field
 	else
 	{
@@ -25,7 +25,7 @@ void	check_floor(t_header *header, char *line, int *error, int i)
 
 void	check_ceilling(t_header *header, char *line, int *error, int i)
 {	
-	if (header->ceiling[3] == NULL)//verify said field to proceed only if empty
+	if (header->ceiling[3] == 0)//verify said field to proceed only if empty
 		fill_ceiling(header, line, error, i);//fill associated field
 	else
 	{
@@ -37,13 +37,21 @@ void	check_ceilling(t_header *header, char *line, int *error, int i)
 void	fill_floor(t_header *header, char *line, int *error, int i)
 {	
 	line = skip_char(line + 2, ' ');
-	//assess colors	
-	printf("Error\n at line %i\n", i);
-	error ++;
+	if (!floor_color_format(header, line))
+	{
+		printf("Error\nwrong floor color format at line %i\n", i);
+		error ++;
+		return ;
+	}
 }
 
 void	fill_ceiling(t_header *header, char *line, int *error, int i)
 {
 	line = skip_char(line + 2, ' ');
-	//assess colors
-}*/
+	if (!ceiling_color_format(header, line))
+	{
+		printf("Error\nwrong ceiling color format at line %i\n", i);
+		error ++;
+		return ;
+	}
+}

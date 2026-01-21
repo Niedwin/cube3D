@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"/*
-//charset for map : " 01NSEW" subject indicate 6 but exemple shows 7 for spaces
+#include "cube.h"
+//charset for map : " 01NSEW\n" subject indicate 6 but exemple shows 8 for spaces n newlines
 int	only_charset(char *str, char *set)//could indicate bad chars if needed
 {
 	int	i;
@@ -34,10 +34,6 @@ int	only_charset(char *str, char *set)//could indicate bad chars if needed
 	return (1);
 }
 
-*
- * doesnt need to verify for a name before the extension, as the extension
- * itself count as a valid name.
- */
 int	ft_strlen(char *str)
 {
 	int	i;
@@ -69,7 +65,15 @@ int	check_postfix(char *source, char *postfix)
 	}
 	return (1);
 }
-/*
+
+int	check_empty_fields(t_header *header)
+{
+	if (header->ceiling[3] && header->floor[3] && header->north &&
+			header->south && header->east && header->west)
+		return (0);
+	return (1);
+}
+
 int	count_charset(char *str, char *charset)
 {
 	int	i;
@@ -124,4 +128,4 @@ char *skip_char(char *str, char c)
 	while (str[i] == c)
 		i ++;
 	return (str + i);
-}*/
+}

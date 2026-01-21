@@ -53,40 +53,15 @@ int	check_args_n_fd(int argc, char **argv)
 	return (fd);
 }
 
-void	null_colors(t_header *header)
+void	initialize_struct(t_header *header)//initialize all fields to NULL
 {
-	header->ceiling[0] = 0;
-	header->ceiling[1] = 0;
-	header->ceiling[2] = 0;
-	header->ceiling[3] = 0;
-	header->floor[0] = 0;
-	header->floor[1] = 0;
-	header->floor[2] = 0;
-	header->floor[3] = 0;
-	return	;
-}
-
-void	null_textures(t_header *header)
-{
+	header->ceiling = ft_memset(ceiling, 0, 4);
+	header->floor = ft_memset(ceiling, 0, 4);
 	header->north = NULL;
 	header->south = NULL;
 	header->east = NULL;
 	header->west = NULL;
-	return ;
-}
-
-void	null_map(t_header *header)
-{
 	header->map = NULL;
-	header->pos[0] = 0;
-	header->pos[1] = 0;
-	return ;
-}
-
-void	initialize_struct(t_header *header)//initialize all fields to NULL
-{
-	null_colors(header);
-	null_textures(header);
-	null_map(header);
+	header->pos = ft_memset(pos, 0, 2);
 	return ;
 }

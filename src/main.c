@@ -25,11 +25,12 @@ void test_struct(t_header *header)
 int	main(int argc, char **argv)
 {
 	t_header	*header;
+	int			*error;
 
 	header = malloc(sizeof(t_header));
 	header->fd = check_args_n_fd(argc, argv);
-	initialize_struct(header);
-	//this is the filling part of the header
+	initialize_struct(header, error);
+	verify_header(header, error);
 	test_struct(header);
 	close(header->fd);
 	free(header);
