@@ -1,0 +1,15 @@
+NO = ./src/textures/assets/museum/dali.xpm
+SO = ./src/textures/assets/museum/hokusai.xpm
+F 0,0,0
+EA = ./src/textures/assets/museum/vangogh.xpm
+
+C 0,0,0
+WE = ./src/textures/assets/museum/klimt.xpm
+
+111111111111111111
+100000000010000001
+100010000100010001
+1000E0000000000001
+100010000100010001
+100000000010000001
+111111111111111111

@@ -149,7 +149,7 @@ typedef struct s_header
 
 void init_player(t_game *g);
 void set_direction(t_game *g, char c);
-
+void ft_free_split(char **split);
 void raycast(t_game *g);
 int game_loop(t_game *game);
 int key_release(int keycode, t_game *game);
@@ -190,8 +190,8 @@ int check_postfix(char *source, char *postfix);
 void initialize_struct(t_header *header);
 
 void	load_and_read_map(t_game *game, char *filename);
-
-
+void free_map_tab(t_map *map);
+void free_map_paths(t_map *map);
 int fill_fields(t_map *map, char *line, int i);
 void check_south(t_map *map, char *line, int i);
 void check_west(t_map *map, char *line, int i);
@@ -210,10 +210,13 @@ int ceiling_color_format(t_header *header, char *line);
 int is_map(char *line);
 int only_charset(char *str, char *set);
 //rgbbb
-
+void free_rgb_split(char **split);
+void free_img(t_mlx *mlx, t_img *img);
 int	ft_verif_digit(char	*str);
-
+void free_textures(t_game *game);
 int	check_rgb_limit(int r, int g, int b, char **tab_value);
+void free_mlx(t_game *game);
+void cleanup(t_game *game);
 
 void	fill_rgb_data(t_map *map, char **split_rgb, char direction);
 

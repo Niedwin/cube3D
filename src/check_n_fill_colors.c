@@ -6,7 +6,7 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 22:04:21 by kguillem          #+#    #+#             */
-/*   Updated: 2026/01/22 17:53:27 by guviure          ###   ########.fr       */
+/*   Updated: 2026/01/22 20:40:14 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,40 +82,49 @@ int	check_rgb_limit(int r, int g, int b, char **tab_value)
 	return (0);
 }
 
-void	fill_rgb_data(t_map *map, char **split_rgb, char direction)
+void fill_rgb_data(t_map *map, char **split_rgb, char direction)
 {
-	int r;
-	int g;
-	int b;
+    int r, g, b;
 
-	if (ft_verif_digit(split_rgb[0]) && ft_verif_digit(split_rgb[1])
-		&& ft_verif_digit(split_rgb[2]))
-	{
-		r = ft_atoi(split_rgb[0]);
-		g = ft_atoi(split_rgb[1]);
-		b = ft_atoi(split_rgb[2]);
-		if (check_rgb_limit(r, g, b, split_rgb) == 1)
-			return ;// a modifier
-		else
-		{
-			if (direction == 'F')
-				map->f_rgb = (r << 16) | (g << 8) | b;
-			else if (direction == 'C')
-				map->c_rgb = (r << 16) | (g << 8) | b;
-		}
-	}
-	ft_free(split_rgb);
-	free(split_rgb);
+    if (!split_rgb || !map)
+        return;
+
+    if (ft_verif_digit(split_rgb[0]) && ft_verif_digit(split_rgb[1])
+        && ft_verif_digit(split_rgb[2]))
+    {
+        r = ft_atoi(split_rgb[0]);
+        g = ft_atoi(split_rgb[1]);
+        b = ft_atoi(split_rgb[2]);
+        if (check_rgb_limit(r, g, b, split_rgb) == 0)
+        {
+            if (direction == 'F')
+                map->f_rgb = (r << 16) | (g << 8) | b;
+            else if (direction == 'C')
+                map->c_rgb = (r << 16) | (g << 8) | b;
+        }
+    }
+    ft_free_split(split_rgb);
 }
 
-void	parsing_rgb(t_map *map, char *line, char direction)
+
+void parsing_rgb(t_map *map, char *line, char direction)
 {
-	char *new_rgb_line;
-	char	**split_rgb;
-	
-	new_rgb_line = ft_strtrim(line, " \n\tFC");
-	split_rgb = ft_split(new_rgb_line, ',');
-	fill_rgb_data(map, split_rgb, direction);
+    char *new_rgb_line;
+    char **split_rgb;
+
+    if (!map || !line)
+        return;
+
+    new_rgb_line = ft_strtrim(line, " \n\tFC");
+    if (!new_rgb_line)
+        return;
+
+    split_rgb = ft_split(new_rgb_line, ',');
+    free(new_rgb_line);  // libération ici
+    if (!split_rgb)
+        return;
+
+    fill_rgb_data(map, split_rgb, direction);
 }
 
 
