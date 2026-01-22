@@ -27,7 +27,7 @@ void	fill_fields(t_header *header, char *line, int *error, int i)
 		check_west(header, line, error, i);
 	else if (line[0] == 'E' && line[1] == 'A' && line[2] == ' ')
 		check_east(header, line, error, i);
-	else if (only_newline(line))
+	else if (only_charset(line, "\n"))
 		return ;
 	else
 	{
