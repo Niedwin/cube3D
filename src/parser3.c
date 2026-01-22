@@ -8,14 +8,30 @@
  * may be better to use whitespaces next to other valid chars to do the checks
  * to reduce the amount of checks to only the perimeter
  */``
-int	closed_map(char **map)
+int	verify_map(t_header *header, char *first, int *error)
 {
-	int	x;
-	int	y;
+	int		height;
+	char	*line;
+	char 	**map;
 
-	x = 0;
-	y = 0;
-	while ()
+	height = 1
+	map[0] = first;
+	while (1)
+	{
+		line = get_next_line(header->fd);
+		if (!line)
+			break ;
+		map[height] = line;
+		if (!only_charset(map[height]), " 01NSEW\n")
+		{
+			printf("Error\nLine %d contains invalid characters", height);
+			*error ++;
+		}
+		height ++;
+	}
+	if (*error)
+		height = 0;//as height cannot be null allows faster checks
+	return (height);
 }
 
 
@@ -40,7 +56,3 @@ void	verify_exceptions(char **map, int height, int *error)
 	}
 }
 
-int	parse3(t_header *header)
-{
-
-}

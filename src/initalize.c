@@ -11,24 +11,27 @@
 /* ************************************************************************** */
 
 #include "cube.h"
-/*
-int	checkpath_textures(char *prefix, char *path)
-{
-	int	fd;
 
-	fd = open(path);
-	if (fd == -1)
+int	checkpath_textures(char *path, char *prefix, int *error)
+{
+	char	*tmp;
+	int		fd;
+
+	fd = open(path, 0, O_RDONLY)
+	if (0 > fd)
 	{
-		printf("Error\n\nCannot open %s texture", prefix);
-		exit(1);
+		printf("Error\n\nCannot open %s as %s texture", path, prefix);
+		*error ++;
+		return ;
 	}
-	if (checkformat_textures(fd))
+	tmp = mlx_xpm_file_to_image();//might need to free !!!
+	if (!tmp)
 	{
-		printf("Error\n\n%s texture isn't to the right format\n", prefix);
-		exit(1);
+		printf("Error\n\n%s cannot be used by the MLX\n", prefix);
+		*error ++;
 	}
-	return (fd);
-}*/
+	close(fd);
+}
 
 int	check_args_n_fd(int argc, char **argv)
 {

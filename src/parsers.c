@@ -11,15 +11,6 @@
 /* ************************************************************************** */
 
 #include "cube.h"
-/*
- * aims to fill a struct with all fields initialized to NULL for char *paths
- * or -1 for integers to give a warning
- * when any field is already set as to avoid doubles attributes in the "header"
- *
- * whenever a path is set, tries to open said path after filling its field
- * so that the error count doesnt count both the field being empty and being
- * unopenable.
- */
 
 //must be used to process any line within the header, could be an hashtable*
 void	fill_fields(t_header *header, char *line, int *error, int i)
@@ -63,5 +54,3 @@ void	verify_header(t_header *header, int *error)
 		i ++;
 	}
 }
-
-
