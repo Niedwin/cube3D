@@ -1,49 +1,44 @@
-
-SRC_FILES = main.c \
- 
-BONUS_FILES =
-
-SRC = $(addprefix src/, ${SRC_FILES})
-BONUS_SRC = $(addprefix src/, ${BONUS_FILES})
-
-COMPILER = cc
-CFLAGS = -Wall -Wextra -Werror -ggdb
-
-OBJ = ${SRC:.c=.o}
-BONUS_OBJ = ${BONUS_SRC:.c=.o}
-TEST_OBJ = ${TEST_SRC:.c=.o}
-
 NAME = cub3D
 
-LIB_DIRS = 
-LIB_NAMES = 
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -g
 
-LIB_PATHS = $(addprefix -L, $(LIB_DIRS))
-LIB_FLAGS = $(addprefix -l, $(LIB_NAMES))
+MLX_DIR = minilibx-linux
+LIBFT_DIR = Libft
 
-LDFLAGS = $(LIB_PATHS) $(LIB_FLAGS)
+SRC =		src/main.c \
+			src/event.c \
+			src/player.c \
+			src/movement.c \
+			src/rotate.c \
+			src/raycast.c \
+			src/raycast_utils.c \
+			src/utils.c \
+			src/utils_kerloye.c \
+			src/parsing/fill_textures.c \
+			src/parsing/fill_textures_kerloye.c \
+			src/initialize.c \
+			src/check_textures.c		\
+			src/check_n_fill_colors.c	\
+			src/parsing/parser3.c				\
+			src/parsing/parsers.c				\
+			src/free.c	
+
+all: $(NAME)
+
+$(NAME):
+	$(MAKE) -C $(LIBFT_DIR)
+	$(MAKE) -C $(MLX_DIR)
+	$(CC) $(CFLAGS) $(SRC) -I$(MLX_DIR) -L$(MLX_DIR) -lmlx -L/usr/lib -lXext -lX11 -lm -L$(LIBFT_DIR) -lft -o $(NAME)
+
+clean:
+	$(MAKE) clean -C $(LIBFT_DIR)
+	$(MAKE) clean -C $(MLX_DIR)
+
+fclean: clean
+	$(MAKE) fclean -C $(LIBFT_DIR)
+	rm -f $(NAME)
+
+re: fclean all
 
 .PHONY: all clean fclean re
-
-.c.o:
-	${COMPILER} ${CFLAGS} -c $< -o ${<:.c=.o} -I.
-
-all: ${NAME}
-
-${NAME}: ${OBJ}
-	$(foreach dir, ${LIB_DIRS}, ${MAKE} -C ${dir};)
-	${COMPILER} ${CFLAGS} -o ${NAME} ${OBJ} ${LDFLAGS}
-
-bonus: ${OBJ} ${BONUS_OBJ}
-	$(foreach dir, ${LIB_DIRS}, ${MAKE} -C ${dir} bonus;)
-	${COMPILER} ${CFLAGS} -o ${NAME} ${OBJ} ${BONUS_OBJ} ${LDFLAGS}
-
-clean_self:
-	rm -f ${OBJ} ${BONUS_OBJ}
-
-clean: clean_self
-	$(foreach dir, ${LIB_DIRS}, ${MAKE} -C ${dir} clean;)
-
-fclean: clean_self
-	$(foreach dir, ${LIB_DIRS}, ${MAKE} -C ${dir} fclean;)
-	rm -f ${NAME}
