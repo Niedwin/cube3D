@@ -6,7 +6,7 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 13:46:37 by kguillem          #+#    #+#             */
-/*   Updated: 2026/01/23 12:16:15 by guviure          ###   ########.fr       */
+/*   Updated: 2026/01/23 15:40:43 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,26 +44,27 @@ void calc_size_map(t_map *map, char *line)
 		map->width = size;
 }
 
-int fill_fields(t_game *game, t_map *map, char *line, int i)
+int fill_fields(t_game *game,int *map_status, char *line, int i)
 {
-	
 	if (is_map(line))
+		*map_status = 1;
+	if (*map_status)
 	{
-		calc_size_map(map, line);
+		calc_size_map(game->map, line);
 		return (0);
-	}	
+	}
 	if (line[0] == 'F' && line[1] == ' ')
-		check_floor(map, line, i);
+		check_floor(game->map, line, i);
 	else if (line[0] == 'C' && line[1] == ' ')
-		check_ceilling(map, line, i);
+		check_ceilling(game->map, line, i);
 	else if (line[0] == 'N' && line[1] == 'O' && line[2] == ' ')
-		check_north(game, map, line, i);
+		check_north(game, game->map, line, i);
 	else if (line[0] == 'S' && line[1] == 'O' && line[2] == ' ')
-		check_south(game, map, line, i);
+		check_south(game, game->map, line, i);
 	else if (line[0] == 'W' && line[1] == 'E' && line[2] == ' ')
-		check_west(game, map, line, i);
+		check_west(game, game->map, line, i);
 	else if (line[0] == 'E' && line[1] == 'A' && line[2] == ' ')
-		check_east(game, map, line, i);
+		check_east(game, game->map, line, i);
 	else if (only_charset(line, "\n"))
 		return (1);
 	else
@@ -75,11 +76,13 @@ int fill_fields(t_game *game, t_map *map, char *line, int i)
 }
 
 // Commence a lire la map et verifier si le fichier est vide
-int	read_data_file(t_game *game, int fd)
+int    read_data_file(t_game *game, int fd)
 {
 	char *line;
 	int i;
+	int map_status;
 	
+	map_status = 0;
 	i = 1;
 	line = ft_get_next_line(fd);
 	if (!line)
@@ -89,16 +92,16 @@ int	read_data_file(t_game *game, int fd)
 	}
 	while (line)
 	{
-		if (fill_fields(game, game->map, line, i) == -1)
-        {
-            free(line);
-            cleanup(game); 
-            exit(1);
-        }
-        free(line);
-        line = ft_get_next_line(fd);
-        i++;
-    }
+		if (fill_fields(game, &map_status, line, i) == -1)
+		{
+			free(line);
+			cleanup(game); 
+			exit(1);
+		}
+		free(line);
+		line = ft_get_next_line(fd);
+		i++;
+	}
 	free(line);
 	if(game->map->f_rgb==-1 || game->map->c_rgb==-1)
 	{
@@ -148,7 +151,7 @@ int check_arround(char **map, int i, int j)
 				if(map[ii] && map[ii][jj] && checkstrchar(map[ii][jj],"10ESWN") ==1 )
 				{
 					printf("Error\n la carte n'est pas ferme \n"); //TODO exit fine
-					ft_free_split(map);
+					//ft_free_split(map);
 					return (1);
 				}
 		}
@@ -239,31 +242,31 @@ int	write_map_line(t_map *map, char	*line, int i)
 
 void fill_map(t_game *game, int fd)
 {
-    char *line;
-    int map_status;
-    int i;
+	char *line;
+	int map_status;
+	int i;
 
-    i = 0;
-    map_status = 0;
-    line = ft_get_next_line(fd);
-    while (line)
-    {
-        if (is_map(line))
-            map_status = 1;
-        if (map_status)
-        {
-            if (!write_map_line(game->map, line, i++))
-            {
-                free(line);
-                //cleanup_gnl(fd);
-                cleanup(game);
-                exit(1);
-            }
-        }
-        free(line);
-        line = ft_get_next_line(fd); 
-    }
-    close(fd);
+	i = 0;
+	map_status = 0;
+	line = ft_get_next_line(fd);
+	while (line)
+	{
+		if (is_map(line))
+			map_status = 1;
+		if (map_status)
+		{
+			if (!write_map_line(game->map, line, i++))
+			{
+				free(line);
+				//cleanup_gnl(fd);
+				cleanup(game);
+				exit(1);
+			}
+		}
+		free(line);
+		line = ft_get_next_line(fd); 
+	}
+	close(fd);
    // cleanup_gnl(fd);
 }
 
@@ -289,28 +292,28 @@ void	create_map(t_map *map)
 
 void load_and_read_map(t_game *game, char *filename)
 {
-    int fd;
-    int in_fd;
-    
-    fd = open(filename, O_RDONLY);
-    if (fd < 0)
-        exit_error("Cannot open map file", game);
-    
-    if (read_data_file(game, fd))
-    {
-        close(fd);
-        cleanup(game); 
-        exit_error("Error reading map file", game);
-    }
-    
-    create_map(game->map);
-    close(fd);
-    //cleanup_gnl(fd);
-    
-    in_fd = open(filename, O_RDONLY);
-    if (in_fd < 0)
-        exit_error("Cannot reopen map file", game);
-    fill_map(game, in_fd);
-    check_open_map(game);
-    //cleanup_gnl(in_fd); 
+	int fd;
+	int in_fd;
+	
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		exit_error("Cannot open map file", game);
+	
+	if (read_data_file(game, fd))
+	{
+		close(fd);
+		cleanup(game); 
+		exit_error("Error reading map file", game);
+	}
+	
+	create_map(game->map);
+	close(fd);
+	//cleanup_gnl(fd);
+	
+	in_fd = open(filename, O_RDONLY);
+	if (in_fd < 0)
+		exit_error("Cannot reopen map file", game);
+	fill_map(game, in_fd);
+	check_open_map(game);
+	//cleanup_gnl(in_fd); 
 }
