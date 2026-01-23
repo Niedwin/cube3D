@@ -6,7 +6,7 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:19:03 by guviure           #+#    #+#             */
-/*   Updated: 2026/01/23 14:45:16 by guviure          ###   ########.fr       */
+/*   Updated: 2026/01/23 17:56:39 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ char	*ft_get_next_line(int fd)
 	bytes_read = 0;
 	buffer_index = 0;
 	line = NULL;
+	line_length = 0;
 	done = 0;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
