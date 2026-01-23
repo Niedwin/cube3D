@@ -1,7 +1,0 @@
-Make a good Makefile
-
-Create the structs
-
-Get the mlx involved
-
-Start raycasting

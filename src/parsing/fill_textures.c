@@ -6,7 +6,7 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 19:38:50 by kguillem          #+#    #+#             */
-/*   Updated: 2026/01/23 08:05:53 by guviure          ###   ########.fr       */
+/*   Updated: 2026/01/23 08:32:09 by kguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,47 +49,3 @@ int	parse_rgb(char *line)
 	b = atoi(line);
 	return ((r << 16) | (g << 8) | b);
 }
-
-// Parsing des textures et couleurs PAR DES FDP DE FDP
-/*void	parse_textures_colors(t_map *map, char *cub_path, t_game *g)
-{
-	printf("\n\n\n BANDE DE FDP \n\n\n");
-				exit(1);
-
-	int		fd;
-	char	*line;
-
-	fd = open(cub_path, O_RDONLY);
-	if (fd < 0)
-		exit_error("Error opening .cub file", g);
-	while (1)
-	{
-		line = ft_get_next_line(fd);
-		if (!line)
-			break ;
-		if (!ft_strncmp(line, "NO ", 3))
-		{
-			map->no_path = ft_strdup(line + 3);
-			printf("\n NO PATH : %s \n", map->no_path);
-			exit(1);
-			if(check_postfix(map->no_path,".xpm"))
-			{	
-				printf("HAHA PAS XPM RATIO");
-				exit(1);
-			}		
-		}
-		else if (!ft_strncmp(line, "SO ", 3))
-			map->so_path = ft_strdup(line + 3);
-		else if (!ft_strncmp(line, "WE ", 3))
-			map->we_path = ft_strdup(line + 3);
-		else if (!ft_strncmp(line, "EA ", 3))
-			map->ea_path = ft_strdup(line + 3);
-		else if (line[0] == 'F')
-			map->f_rgb = parse_rgb(line + 2);
-		else if (line[0] == 'C')
-			map->c_rgb = parse_rgb(line + 2);
-		free(line);
-	}
-	close(fd);
-}
-*/

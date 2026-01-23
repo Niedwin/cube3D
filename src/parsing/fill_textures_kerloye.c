@@ -6,7 +6,7 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 19:38:50 by kguillem          #+#    #+#             */
-/*   Updated: 2026/01/22 18:35:31 by guviure          ###   ########.fr       */
+/*   Updated: 2026/01/23 08:25:06 by kguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ void check_north(t_map *map, char *line, int i)
 	char	*new_line;
 	int		tmpfd;
 	
-	tmpfd=0;
+	tmpfd = 0;
 	if (!map->no_path)
 	{
-		new_line = ft_strtrim(line + 2, " \t\n");
+		new_line = ft_strtrim(line + 2, " \n");
 		map->no_path = ft_strdup(new_line);
 		free(new_line);
-	}	 // verify said field to proceed only if empty
+	}
 	else
 	{
 		printf("Error\nMultiple attribution for 'NO' at line %i\n", i);
@@ -41,8 +41,7 @@ void check_north(t_map *map, char *line, int i)
 		printf("\n NO HAHAHAHA PAS UN FICHIER QUI EXISTE RATIO\n"); //TODO exit correctement
 		exit(1);
 	}
-	close(tmpfd);	
-	
+	close(tmpfd);
 }
 
 void check_south(t_map *map, char *line, int i)
@@ -53,10 +52,10 @@ void check_south(t_map *map, char *line, int i)
 	tmpfd = 0;
 	if (!map->so_path)
 	{
-		new_line = ft_strtrim(line + 2, " \t\n");
+		new_line = ft_strtrim(line + 2, " \n");
 		map->so_path = ft_strdup(new_line);
 		free(new_line);
-	}	 // verify said field to proceed only if empty
+	}
 	else
 	{
 		printf("Error\nMultiple attribution for 'SO' at line %i\n", i);
@@ -81,13 +80,13 @@ void check_west(t_map *map, char *line, int i)
 	char	*new_line;
 	int		tmpfd;
 
-	tmpfd=0;	
+	tmpfd = 0;	
 	if (!map->we_path)
 	{
-		new_line = ft_strtrim(line + 2, " \t\n");
+		new_line = ft_strtrim(line + 2, " \n");
 		map->we_path = ft_strdup(new_line);
 		free(new_line);
-	}	 // verify said field to proceed only if empty
+	}
 	else
 	{
 		printf("Error\nMultiple attribution for 'WE' at line %i\n", i);
@@ -112,16 +111,16 @@ void check_east(t_map *map, char *line, int i)
 	char	*new_line;
 	int    tmpfd;
 
-	tmpfd=0;	
+	tmpfd = 0;	
 	if (!map->ea_path)
 	{
-		new_line = ft_strtrim(line + 2, " \t\n");
+		new_line = ft_strtrim(line + 2, " \n");
 		map->ea_path = ft_strdup(new_line);
 		free(new_line);
-	}	 // verify said field to proceed only if empty
+	}
 	else
 	{
-		printf("Error\nMultiple attribution for 'EUW' at line %i\n", i); //league ref OMGGG
+		printf("Error\nMultiple attribution for 'EUW' at line %i\n", i);
 	    exit(EXIT_FAILURE);//TODO exit normalement
 	}
 	if (check_postfix(map->ea_path,".xpm")==0)

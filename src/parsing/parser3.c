@@ -6,7 +6,7 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 17:53:16 by guviure           #+#    #+#             */
-/*   Updated: 2026/01/23 08:03:13 by guviure          ###   ########.fr       */
+/*   Updated: 2026/01/23 08:37:05 by kguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,6 @@ int	verify_map(t_header *header, char *first)
 	return (height);
 }
 
-/*
- * verify the map when there are no whitespaces, such as no open spaces in
- * column 0, no open spaces at max width'
- *
- */
 void	verify_exceptions(char **map, int height)
 {
 	int	i;
