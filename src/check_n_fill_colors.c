@@ -19,6 +19,7 @@ void check_floor(t_map *map, char *line, int i)
 	else
 	{
 		printf("Error\nMultiple attribution for 'F' at line %i\n", i);
+		exit(EXIT_FAILURE); //TODO exit normalement
 	}
 }
 
@@ -29,6 +30,7 @@ void check_ceilling(t_map *map, char *line, int i)
 	else
 	{
 		printf("Error\nMultiple attribution for 'C' at line %i\n", i);
+		exit(EXIT_FAILURE);//TODO exit normalement
 	}
 }
 
@@ -88,7 +90,6 @@ void fill_rgb_data(t_map *map, char **split_rgb, char direction)
 
     if (!split_rgb || !map)
         return;
-
     if (ft_verif_digit(split_rgb[0]) && ft_verif_digit(split_rgb[1])
         && ft_verif_digit(split_rgb[2]))
     {
@@ -101,8 +102,19 @@ void fill_rgb_data(t_map *map, char **split_rgb, char direction)
                 map->f_rgb = (r << 16) | (g << 8) | b;
             else if (direction == 'C')
                 map->c_rgb = (r << 16) | (g << 8) | b;
-        }
+			else{
+				printf("\nGROS PAS RGB ??\n COLOR : %c\n", direction);
+				exit(1);//TODO exit normalement
+			}
+        }else{
+			printf("\nGROS MAUVAIS RGB\n");//TODO exit normalement
+			exit(1) ;
+		}
     }
+	else{
+	printf("\nGROS NUMBER RGB PAS VALIDE\n");
+			exit(1) ;//TODO exit normalement
+	}
     ft_free_split(split_rgb);
 }
 
@@ -116,8 +128,13 @@ void parsing_rgb(t_map *map, char *line, char direction)
         return;
 
     new_rgb_line = ft_strtrim(line, " \n\tFC");
+	//printf("\n new rgb line : %s \n",new_rgb_line);
     if (!new_rgb_line)
-        return;
+	{
+		printf("HAHAHAHA");
+return;
+	}
+        
 
     split_rgb = ft_split(new_rgb_line, ',');
     free(new_rgb_line);  // libération ici

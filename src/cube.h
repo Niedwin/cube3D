@@ -149,7 +149,6 @@ typedef struct s_header
 
 void init_player(t_game *g);
 void set_direction(t_game *g, char c);
-void ft_free_split(char **split);
 void raycast(t_game *g);
 int game_loop(t_game *game);
 int key_release(int keycode, t_game *game);
@@ -182,7 +181,7 @@ void free_screen(t_game *game);
 void free_mlx(t_game *game);
 void cleanup(t_game *game);
 void exit_error(char *msg, t_game *game);
-void parse_textures_colors(t_map *map, char *cub_path, t_game *g);
+//void parse_textures_colors(t_map *map, char *cub_path, t_game *g);
 
 // PROTOTYPE KERLOYE
 int check_args_n_fd(int argc, char **argv);
@@ -217,9 +216,14 @@ void free_textures(t_game *game);
 int	check_rgb_limit(int r, int g, int b, char **tab_value);
 void free_mlx(t_game *game);
 void cleanup(t_game *game);
-
+void	ft_free_split(char **split);
+void	cleanup(t_game *game);
+void	free_map_tab(t_map *map);
+void	free_mlx(t_game *game);
+void	free_rgb_split(char **split);
+void	free_map_paths(t_map *map);
 void	fill_rgb_data(t_map *map, char **split_rgb, char direction);
-
+void	free_img(t_mlx *mlx, t_img *img);
 void	parsing_rgb(t_map *map, char *line, char direction);
-
+void	free_textures(t_game *game);
 #endif

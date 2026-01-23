@@ -17,7 +17,8 @@ int is_map(char *line)
 	int map_status;
 
 	map_status = 0;
-	while (*line == ' ' || *line == '\t')
+	// while (*line == ' ' || *line == '\t') // TODO jai edit pour pas prendre tab, jsp
+	while (*line == ' ')
 		line++;
 	if (ft_strncmp(line, "NO", 2) == 0 || ft_strncmp(line, "SO", 2) == 0
 		|| ft_strncmp(line, "EA", 2) == 0 || ft_strncmp(line, "WE", 2) == 0
@@ -46,6 +47,7 @@ void calc_size_map(t_map *map, char *line)
 
 int fill_fields(t_map *map, char *line, int i)
 {
+	
 	if (is_map(line))
 	{
 		calc_size_map(map, line);
@@ -92,23 +94,136 @@ int	read_data_file(t_game *game, int fd)
 		line = ft_get_next_line(fd);
 		i++;
 	}
+	if(game->map->f_rgb==-1 || game->map->c_rgb==-1)
+	{
+		printf("\n ME MANQUE UNE COULEUR HAHAHAHAHAHAHAHAHAA\n");//TODO exit normalement
+		exit(1);
+	}
+	if (!game->map->no_path || !game->map->so_path || !game->map->we_path || !game->map->ea_path)
+	{
+		printf("\n ME MANQUE UNE TEXTRE HAHAHAHAHAHAHAHAHAA\n");//TODO exit normalement
+		exit(1);
+	}
 	return (0);
 }
 
-void	write_map_line(t_map *map, char	*line, int *i)
+int checkstrchar(char c, char *str)
+{
+	int i;
+
+	i = 0;
+	while(str[i])
+	{
+		if(str[i]==c)
+		{
+			return (0);
+		}
+			
+		i++;
+	}
+	return (1);
+}
+
+int check_arround(char **map, int i, int j)
+{
+	int ii;
+	int jj;
+
+	ii=i-1;
+	while (ii<=i+1)
+	{
+		jj=j-1;
+		while (jj<=j+1)
+		{	
+			if( !(((jj==j+1) && ((ii == i + 1) || (ii == i -1))) || ((jj==j-1) && ((ii == i + 1) || (ii == i -1)))))
+			{
+				if(map[ii] && map[ii][jj] && checkstrchar(map[ii][jj],"10ESWN") ==1 )
+				{
+					printf("PAS DE BOL NON\n ii : %i jj : %i c : %c\n",ii,jj,map[ii][jj]); //TODO exit fine
+					return 1;
+				}
+		}
+			jj++;
+		}
+		ii++;
+	}
+	
+
+return (0);
+}
+
+int check_open_map(t_map *map)
+{
+	int i;
+	int j;
+
+	i=0;
+	j=0;
+	if(only_charset(map->map_tab[0],"!1#\n") == 0 ||  only_charset(map->map_tab[map->heightmap-1],"!1#\n") == 0)
+	{
+		printf("NON RATIO");
+		exit(1);// TODO exit 
+	}
+	while (i < map->heightmap)
+	{
+		j=0;
+		while (j < map->widthmap)
+		{
+		
+			if ((j == 0 || j == map->widthmap -1) && checkstrchar(map->map_tab[i][j],"1#\n"))
+			{
+				printf("BORDURE GAUCHE OU DROITE OUVERTE HAHA");
+				exit(1);//TODO exit
+			}
+			if(map->map_tab[i][j]=='0' && check_arround(map->map_tab,i,j) == 1)
+			{
+				printf("PAS DE BOL NON\n"); //TODO exit fine
+				exit(1);
+			}
+		
+			j++;
+		}
+		i++;
+	}
+	
+
+	return 0;
+}
+
+void	write_map_line(t_map *map, char	*line, int i)
 {
 	int	j;
+	int tem;
 
+	tem = 0;
 	j = 0;
 	while (line[j] && j < map->widthmap)
 	{
-		if (line[j] == ' ' || line[j] == '\n' || line[j] == '\t')
-			map->map_tab[*i][j] = '#';
+		if(!(map->map_tab[i]))
+		{
+			printf("GLOUBIBOULGA BREAK LINE AT END"); //TODO BREAK LINE END
+			exit(1);//TODO exit normalement
+		}
+		if((line[j] == ' ' && tem==0))
+		{
+			map->map_tab[i][j] = '#';
+		}else if (line[j] == '\n')
+		{
+		
+			map->map_tab[i][j] = '#';
+		}
 		else
-			map->map_tab[*i][j] = line[j];
+		{
+			if(line[j] == ' ')
+			{
+				map->map_tab[i][j] = '!';
+			}
+			else
+				map->map_tab[i][j] = line[j];
+			tem=1;
+		}
 		j++;
 	}
-	(*i)++;
 }
 
 void	fill_map(t_game *game, int fd)
@@ -125,9 +240,11 @@ void	fill_map(t_game *game, int fd)
 		if (is_map(line))
 			map_status = 1;
 		if (map_status)
-			write_map_line(game->map, line, &i);
+			write_map_line(game->map, line, i++);
 		free(line);
 		line = ft_get_next_line(fd);
+		//map_status = 0;//TODO si marche plus go comment
+		//printf("bah ?");
 	}
 	close(fd);
 	free(line);
@@ -172,6 +289,7 @@ void	load_and_read_map(t_game *game, char *filename)
 	nd_fd = open(filename, O_RDONLY);
 	// lit et remplis la data du terrain
 	fill_map(game, nd_fd);
+	check_open_map(game->map);
 		
 }
 

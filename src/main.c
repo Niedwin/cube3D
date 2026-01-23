@@ -97,10 +97,6 @@ void print_map(t_map *map)
         printf("%s\n", map->map_tab[i]);
         i++;
     }
-    if (map->no_path)
-        printf("%s\n", map->no_path);
-    if (map->so_path)
-        printf("%s\n", map->so_path);
 }
 
 /* ---------------- INIT MLX ---------------- */

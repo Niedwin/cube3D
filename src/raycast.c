@@ -90,7 +90,6 @@ static void	calc_wall_height(t_ray *r, t_draw *d)
 	else
 		r->perp_wall_dist = r->side_dist.y - r->delta_dist.y;
 	r->line_height = (int)(SCREENHEIGHT / r->perp_wall_dist);
-
 	d->start = -r->line_height / 2 + SCREENHEIGHT / 2;
 	if (d->start < 0)
 		d->start = 0;

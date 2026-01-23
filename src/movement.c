@@ -6,7 +6,7 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 23:10:02 by guviure           #+#    #+#             */
-/*   Updated: 2026/01/22 17:53:58 by guviure          ###   ########.fr       */
+/*   Updated: 2026/01/23 07:48:28 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	move_forward(t_game *game)
 	margin = 0.1;
 	new_x = game->player.pos.x + game->player.dir.x * MOVE_SPEED;
 	new_y = game->player.pos.y + game->player.dir.y * MOVE_SPEED;
-	//printf("x = %f, y = %f", game->player.dir.x, game->player.dir.y);
 	if (game->map->map_tab[(int)(new_y + margin)]
 			[(int)(new_x + margin)] != '1' &&
 			game->map->map_tab[(int)(new_y - margin)]

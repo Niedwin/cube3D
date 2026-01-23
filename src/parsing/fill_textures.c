@@ -6,7 +6,7 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 19:38:50 by kguillem          #+#    #+#             */
-/*   Updated: 2026/01/22 17:53:13 by guviure          ###   ########.fr       */
+/*   Updated: 2026/01/23 08:05:53 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	load_all_textures(t_game *g)
 	load_texture(g, g->tex->we, g->map->we_path);
 	load_texture(g, g->tex->ea, g->map->ea_path);
 }
-
 
 int	parse_rgb(char *line)
 {
@@ -51,9 +50,12 @@ int	parse_rgb(char *line)
 	return ((r << 16) | (g << 8) | b);
 }
 
-// Parsing des textures et couleurs
-void	parse_textures_colors(t_map *map, char *cub_path, t_game *g)
+// Parsing des textures et couleurs PAR DES FDP DE FDP
+/*void	parse_textures_colors(t_map *map, char *cub_path, t_game *g)
 {
+	printf("\n\n\n BANDE DE FDP \n\n\n");
+				exit(1);
+
 	int		fd;
 	char	*line;
 
@@ -66,7 +68,16 @@ void	parse_textures_colors(t_map *map, char *cub_path, t_game *g)
 		if (!line)
 			break ;
 		if (!ft_strncmp(line, "NO ", 3))
+		{
 			map->no_path = ft_strdup(line + 3);
+			printf("\n NO PATH : %s \n", map->no_path);
+			exit(1);
+			if(check_postfix(map->no_path,".xpm"))
+			{	
+				printf("HAHA PAS XPM RATIO");
+				exit(1);
+			}		
+		}
 		else if (!ft_strncmp(line, "SO ", 3))
 			map->so_path = ft_strdup(line + 3);
 		else if (!ft_strncmp(line, "WE ", 3))
@@ -81,4 +92,4 @@ void	parse_textures_colors(t_map *map, char *cub_path, t_game *g)
 	}
 	close(fd);
 }
-
+*/

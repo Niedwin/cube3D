@@ -6,16 +6,15 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 19:34:00 by guviure           #+#    #+#             */
-/*   Updated: 2026/01/22 17:53:49 by guviure          ###   ########.fr       */
+/*   Updated: 2026/01/23 08:00:46 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-int checkpath_textures(char *path, char *prefix)
+int	checkpath_textures(char *path, char *prefix)
 {
-	// char *tmp;
-	int fd;
+	int	fd;
 
 	fd = open(path, 0, O_RDONLY);
 	if (0 > fd)
@@ -23,20 +22,13 @@ int checkpath_textures(char *path, char *prefix)
 		printf("Error\n\nCannot open %s as %s texture", path, prefix);
 		return (1);
 	}
-	// tmp = mlx_xpm_file_to_image(); // might need to free !!!
-	// if (!tmp)
-	//{
-	//	printf("Error\n\n%s cannot be used by the MLX\n", prefix);
-	// }
 	close(fd);
 	return (0);
 }
 
-
-/* Verif valid argument valid .cub and valid file*/
-int check_args_n_fd(int argc, char **argv)
+int	check_args_n_fd(int argc, char **argv)
 {
-	int fd;
+	int	fd;
 
 	if (argc != 2 || argv[1][0] == '\0')
 	{
@@ -48,7 +40,7 @@ int check_args_n_fd(int argc, char **argv)
 		printf("Error\n\nInvalid file extension, must be '.cub'\n");
 		exit(1);
 	}
-	fd = open(argv[1], O_RDONLY); // not finished!!!
+	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 	{
 		printf("Error\n\nCannot open the given '.cub'\n");
@@ -56,5 +48,3 @@ int check_args_n_fd(int argc, char **argv)
 	}
 	return (1);
 }
-
-

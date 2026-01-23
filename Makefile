@@ -18,13 +18,13 @@ SRC =		src/main.c \
 			src/parsing/fill_textures.c \
 			src/parsing/fill_textures_kerloye.c \
 			src/initialize.c \
-			src/check_textures.c		\
 			src/check_n_fill_colors.c	\
 			src/parsing/parser3.c				\
 			src/parsing/parsers.c				\
-			src/free.c	
+			src/free.c	\
+			src/free2.c
 
-all: $(NAME)
+all: $(NAME) 
 
 $(NAME):
 	$(MAKE) -C $(LIBFT_DIR)

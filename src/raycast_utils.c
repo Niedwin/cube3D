@@ -6,7 +6,7 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 02:04:31 by guviure           #+#    #+#             */
-/*   Updated: 2026/01/22 17:54:06 by guviure          ###   ########.fr       */
+/*   Updated: 2026/01/23 07:48:17 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	get_tex_pos(t_game *g, t_ray *r, t_draw d)
 	r->stepp = 1.0 * r->tex->height / r->line_height;
 	r->tex_pos = (d.start - SCREENHEIGHT / 2 + r->line_height / 2) * r->stepp;
 }
-
 
 void	draw_wall(t_game *g, t_ray *r, t_draw d)
 {
