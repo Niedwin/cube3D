@@ -6,7 +6,7 @@
 /*   By: kguillem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 13:46:37 by kguillem          #+#    #+#             */
-/*   Updated: 2026/01/13 15:07:00 by kguillem         ###   ########.fr       */
+/*   Updated: 2026/01/23 05:52:28 by kguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@
 void	fill_fields(t_header *header, char *line, int *error, int i)
 {
 	if (line[0] == 'F' && line[1] == ' ')
-		check_floor(header, line, error, i);
+		check_color(header->floor, "F", line, error, i);
 	else if (line[0] == 'C' && line[1] == ' ')
-		check_ceilling(header, line, error, i);
+		check_color(header->ceiling, "C", line, error, i);
 	else if (line[0] == 'N' && line[1] == 'O' && line[2] == ' ')
-		check_north(header, line, error, i);
+		check_path(header->north, "NO", line, error, i);
 	else if (line[0] == 'S' && line[1] == 'O' && line[2] == ' ')
-		check_south(header, line, error, i);
+		check_path(header->south, "SO", line, error, i);
 	else if (line[0] == 'W' && line[1] == 'E' && line[2] == ' ')
-		check_west(header, line, error, i);
+		check_path(header->west, "WE", line, error, i);
 	else if (line[0] == 'E' && line[1] == 'A' && line[2] == ' ')
-		check_east(header, line, error, i);
+		check_path(header->east, "EA", line, error, i);
 	else if (only_charset(line, "\n"))
 		return ;
 	else

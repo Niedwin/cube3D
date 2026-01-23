@@ -6,12 +6,24 @@
 /*   By: kguillem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 13:40:06 by kguillem          #+#    #+#             */
-/*   Updated: 2026/01/13 15:03:40 by kguillem         ###   ########.fr       */
+/*   Updated: 2026/01/23 05:49:24 by kguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
+void	check_path(char *path, char *prefix, char *line, int *error, int i,)
+{
+	if (path == NULL)
+		fill_floor(path, line, error, i);//fill associated field
+	else
+	{
+		printf("Error\nMultiple attribution for %s at %i\n", prefix, i);
+		*error ++;
+	}
+}
+
+/*
 void	check_north(t_header *header, char *line, int *error, int i)
 {
 	if (header->north_texture == NULL)
