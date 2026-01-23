@@ -6,7 +6,7 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 22:04:21 by kguillem          #+#    #+#             */
-/*   Updated: 2026/01/22 20:40:14 by guviure          ###   ########.fr       */
+/*   Updated: 2026/01/23 12:53:16 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void check_floor(t_map *map, char *line, int i)
 		parsing_rgb(map, line, line[0]); // fill associated field
 	else
 	{
-		printf("Error\nMultiple attribution for 'F' at line %i\n", i);
+		printf("Error\nMultiple attribution de 'F' a la ligne %i\n", i);
 		exit(EXIT_FAILURE); //TODO exit normalement
 	}
 }
@@ -78,7 +78,7 @@ int	check_rgb_limit(int r, int g, int b, char **tab_value)
 	if (!(r >= 0 && r <= 255 && g >= 0 && g <= 255
 			&& b >= 0 && b <= 255) || tab_value[3])
 	{
-		printf("Error map ! Please enter a valid RGB value\n");
+		printf("Error\n map ! mauvais valeur RGB\n");
 		return (1);
 	}
 	return (0);
@@ -86,7 +86,9 @@ int	check_rgb_limit(int r, int g, int b, char **tab_value)
 
 void fill_rgb_data(t_map *map, char **split_rgb, char direction)
 {
-    int r, g, b;
+    int	r;
+	int	g; 
+	int	b;
 
     if (!split_rgb || !map)
         return;
@@ -103,17 +105,22 @@ void fill_rgb_data(t_map *map, char **split_rgb, char direction)
             else if (direction == 'C')
                 map->c_rgb = (r << 16) | (g << 8) | b;
 			else{
-				printf("\nGROS PAS RGB ??\n COLOR : %c\n", direction);
+				printf("Error \n Pas une couleur RGB : %c\n", direction);
+				ft_free_split(split_rgb);
 				exit(1);//TODO exit normalement
 			}
-        }else{
-			printf("\nGROS MAUVAIS RGB\n");//TODO exit normalement
-			exit(1) ;
+        }else
+		{
+			printf("Error\n Le RGB n'est pas bon\n");//TODO exit normalement
+			ft_free_split(split_rgb);
+			exit(1);
 		}
     }
-	else{
-	printf("\nGROS NUMBER RGB PAS VALIDE\n");
-			exit(1) ;//TODO exit normalement
+	else
+	{
+		printf("\nGROS NUMBER RGB PAS VALIDE\n");
+		ft_free_split(split_rgb);
+		exit(1) ;//TODO exit normalement
 	}
     ft_free_split(split_rgb);
 }
@@ -126,21 +133,19 @@ void parsing_rgb(t_map *map, char *line, char direction)
 
     if (!map || !line)
         return;
-
-    new_rgb_line = ft_strtrim(line, " \n\tFC");
-	//printf("\n new rgb line : %s \n",new_rgb_line);
+	if (direction == 'C')
+    	new_rgb_line = ft_strtrim(line, " \n\tC");
+	else
+    	new_rgb_line = ft_strtrim(line, " \n\tF");
     if (!new_rgb_line)
 	{
-		printf("HAHAHAHA");
-return;
+		printf("Error\n la ligne nest pas au format RGB \n");
+		return ;
 	}
-        
-
     split_rgb = ft_split(new_rgb_line, ',');
     free(new_rgb_line);  // libération ici
     if (!split_rgb)
         return;
-
     fill_rgb_data(map, split_rgb, direction);
 }
 

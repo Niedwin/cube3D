@@ -6,7 +6,7 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 20:26:54 by guviure           #+#    #+#             */
-/*   Updated: 2026/01/23 07:57:22 by guviure          ###   ########.fr       */
+/*   Updated: 2026/01/23 12:23:25 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_map_tab(t_map *map)
 	if (!map || !map->map_tab)
 		return ;
 	i = 0;
-	while (i < map->heightmap)
+	while (i < map->height)
 	{
 		if (map->map_tab[i])
 		{
@@ -63,16 +63,16 @@ void	free_rgb_split(char **split)
 	free(split);
 }
 
-void	free_img(t_mlx *mlx, t_img *img)
+void free_img(t_mlx *mlx, t_img *img)
 {
-	if (!mlx || !img)
-		return ;
-	if (img->img)
-	{
-		mlx_destroy_image(mlx->ptr, img->img);
-		img->img = NULL;
-		img->addr = NULL;
-	}
+    if (!mlx || !mlx->ptr || !img)
+        return;
+    if (img->img)
+    {
+        mlx_destroy_image(mlx->ptr, img->img);
+        img->img = NULL;
+        img->addr = NULL;
+    }
 }
 
 void	free_textures(t_game *game)

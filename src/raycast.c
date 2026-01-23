@@ -75,8 +75,8 @@ static void	perform_dda(t_game *g, t_ray *r)
 			r->side = 1;
 		}
 		if (r->map.x < 0 || r->map.y < 0
-			|| r->map.x >= g->map->widthmap
-			|| r->map.y >= g->map->heightmap)
+			|| r->map.x >= g->map->width
+			|| r->map.y >= g->map->height)
 			exit_error("Error\nRay went out of map bounds", g);
 		if (g->map->map_tab[(int)r->map.y][(int)r->map.x] == '1')
 			hit = 1;

@@ -73,10 +73,10 @@ void	init_player(t_game *g)
 
 	y = 0;
 	found = 0;
-	while (y < g->map->heightmap)
+	while (y < g->map->height)
 	{
 		x = 0;
-		while (x < g->map->widthmap)
+		while (x < g->map->width)
 		{
 			c = g->map->map_tab[y][x];
 			if (c == 'N' || c == 'S' || c == 'E' || c == 'W')

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/23 10:48:07 by guviure           #+#    #+#             */
+/*   Updated: 2026/01/23 10:48:07 by guviure          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube.h"
 
 int close_window(t_game *game)
@@ -59,40 +71,10 @@ void init_hooks(t_game *game)
     mlx_loop_hook(game->mlx->ptr, game_loop, game);
 }
 
-/* ---------------- TEMP MAP ---------------- */
-char **load_test_map(t_map *map)
-{
-    static char *map_tmp[] = {
-        "111111111111111111111111", "100000000000000000000001",
-        "100000000000000000000001", "10000000000N000000000001",
-        "100000000000000000000001", "111111111111111111111111"
-    };
-    char **tab;
-    int i;
-
-    map->heightmap = 6;
-    map->widthmap = 24;
-    tab = malloc(sizeof(char *) * map->heightmap);
-    if (!tab)
-        exit_error("malloc failed", NULL);
-    for (i = 0; i < map->heightmap; i++)
-    {
-        tab[i] = ft_strdup(map_tmp[i]);
-        if (!tab[i])
-        {
-            while (i-- > 0)
-                free(tab[i]);
-            free(tab);
-            exit_error("ft_strdup failed", NULL);
-        }
-    }
-    return tab;
-}
-
 void print_map(t_map *map)
 {
     int i = 0;
-    while (i < map->heightmap)
+    while (i < map->height)
     {
         printf("%s\n", map->map_tab[i]);
         i++;
@@ -103,13 +85,23 @@ void print_map(t_map *map)
 void init_mlx(t_mlx *mlx, t_game *game)
 {
     mlx->ptr = mlx_init();
+    if (!mlx->ptr)
+        exit_error("MLX initialization failed", game);
+    
     game->mlx->ptr = mlx->ptr;
     game->mlx->win = mlx_new_window(game->mlx->ptr, SCREENWIDTH,
-            SCREENHEIGHT, "CUB3D NxT");
+            SCREENHEIGHT, "CUB3D");
+    if (!game->mlx->win)
+        exit_error("Window creation failed", game);
+    
     mlx->img->img = mlx_new_image(mlx->ptr, SCREENWIDTH, SCREENHEIGHT);
+    if (!mlx->img->img)
+        exit_error("Image creation failed", game);
+    
     mlx->img->addr = (int *)mlx_get_data_addr(mlx->img->img, &mlx->img->bpp,
             &mlx->img->line_len, &mlx->img->endian);
 }
+
 
 /* ---------------- MAIN ---------------- */
 int main(int argc, char **argv)
@@ -143,8 +135,8 @@ int main(int argc, char **argv)
     if (!game->mlx->img)
         exit_error("malloc failed", game);
 
-    game->map->heightmap = 0;
-    game->map->widthmap = 0;
+    game->map->height = 0;
+    game->map->width = 0;
 
     // --- map et textures ---
     load_and_read_map(game, argv[1]);
