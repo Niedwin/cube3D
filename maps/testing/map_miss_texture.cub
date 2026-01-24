@@ -1,6 +1,6 @@
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
+NO textures/bluestone.xpm
+SO textures/purplestone.xpm
+WE textures/mossy.xpm
 # EA manquant
 
 F 220,100,0

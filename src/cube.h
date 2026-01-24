@@ -133,6 +133,7 @@ typedef struct s_game
 		int rot_right;
 } t_game;
 
+
 void init_player(t_game *g);
 void set_direction(t_game *g, char c);
 void raycast(t_game *g);
@@ -172,11 +173,10 @@ void exit_error(char *msg, t_game *game);
 // PROTOTYPE KERLOYE
 int check_args_n_fd(int argc, char **argv);
 int check_postfix(char *source, char *postfix);
-
 void	load_and_read_map(t_game *game, char *filename);
 void free_map_tab(t_map *map);
 void free_map_paths(t_map *map);
-int		fill_fields(t_game *game, int *map_status, char *line, int i);
+int fill_fields(t_game *game,int *map_status, char *line, int i);
 void check_south(t_game *game, t_map *map, char *line, int i);
 void check_west(t_game *game, t_map *map, char *line, int i);
 void check_north(t_game *game, t_map *map, char *line, int i);
@@ -184,6 +184,7 @@ void check_east(t_game *game, t_map *map, char *line, int i);
 void verify_exceptions(t_game *game, char **map, int height);
 void check_floor(t_map *map, char *line, int i);
 void check_ceilling(t_map *map, char *line, int i);
+//int check_empty_fields(t_map *map);
 char *skip_char(char *str, char c);
 // int only_charset(char *line, const char *charset);
 int is_map(char *line);

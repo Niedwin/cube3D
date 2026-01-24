@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
+/*   By: npederen <npederen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 17:53:16 by guviure           #+#    #+#             */
-/*   Updated: 2026/01/23 13:37:38 by guviure          ###   ########.fr       */
+/*   Updated: 2026/01/23 13:21:18 by npederen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	verify_exceptions(t_game *game, char **map, int height)
 	{
 		if (map[i][0] == '0')
 		{
-			printf("Error\nLine %i not closed\n", i);
+			printf("Error\nLigne %i nest pas ferme\n", i);
 			j = 0;
             while (j <= height)
             {

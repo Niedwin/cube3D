@@ -1,10 +1,10 @@
-NO = ./src/textures/assets/museum/dali.xpm
-SO = ./src/textures/assets/museum/hokusai.xpm
+NO textures/bluestone.xpm
+SO textures/purplestone.xpm
 F 0,0,0
-EA = ./src/textures/assets/museum/vangogh.xpm
+EA textures/redbrick.xpm
 
 C 0,0,0
-WE = ./src/textures/assets/museum/klimt.xpm
+WE textures/mossy.xpm
 
 111111111111111111
 100000000010000001

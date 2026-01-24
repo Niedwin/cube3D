@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
+/*   By: npederen <npederen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 13:46:37 by kguillem          #+#    #+#             */
-/*   Updated: 2026/01/23 18:58:21 by guviure          ###   ########.fr       */
+/*   Updated: 2026/01/23 14:54:23 by npederen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int fill_fields(t_game *game,int *map_status, char *line, int i)
 		return (1);
 	else
 	{
-		printf("Error\nUnvalid Line : %i\n", i);
+		printf("Error\nLigne non valid : %i\n", i);
 		return (-1);
 	}
 	return (0);
@@ -87,7 +87,7 @@ int    read_data_file(t_game *game, int fd)
 	line = ft_get_next_line(fd);
 	if (!line)
 	{
-		printf("Error\nEmpty File \n");
+		printf("Error\nFichier Vide \n");
 		return 1;
 	}
 	while (line)
@@ -105,13 +105,13 @@ int    read_data_file(t_game *game, int fd)
 	free(line);
 	if(game->map->f_rgb==-1 || game->map->c_rgb==-1)
 	{
-		printf("Error\nMissing Color \n");//TODO exit normalement
+		printf("Error\n Couleur manquante \n");//TODO exit normalement
 		cleanup(game);
 		exit(1);
 	}
 	if (!game->map->no_path || !game->map->so_path || !game->map->we_path || !game->map->ea_path)
 	{
-		printf("Error\nMissing Color \n");//TODO exit normalement
+		printf("Error\n Texte manquant \n");//TODO exit normalement
 		cleanup(game);
 		exit(1);
 	}
@@ -185,22 +185,17 @@ int check_open_map(t_game *game)
 		
 			if ((j == 0 || j == game->map->width -1) && checkstrchar(game->map->map_tab[i][j],"1#\n"))
 			{
-				printf("Error\n Map open \n");
+				printf("Error\n Map ouverte \n");
 				cleanup(game);
 				exit(1);//TODO exit
 			}
 			if(game->map->map_tab[i][j]=='0' && check_arround(game->map->map_tab,i,j) == 1)
 			{
-				printf("Error\n Map open\n"); //TODO exit fine
+				printf("Error\n Map ouverte\n"); //TODO exit fine
 				cleanup(game);
 				exit(1);
 			}
-			if (game->map->height <= 0)
-   			{
-				printf("Error\nMissing Map \n");
-  			  	cleanup(game);
-   			 	exit(1);
-    	}
+		
 			j++;
 		}
 		i++;
@@ -219,7 +214,7 @@ int	write_map_line(t_map *map, char	*line, int i)
 	{
 		if(!(map->map_tab[i]))
 		{
-			printf("Error\nLine at the end \n");
+			printf("Error\n ligne a la fin \n");
 			return (0);//TODO exit normalement
 		}
 		if((line[j] == ' ' && tem==0))
