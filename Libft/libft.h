@@ -6,7 +6,7 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 09:13:53 by mpajot-t          #+#    #+#             */
-/*   Updated: 2026/01/24 17:41:36 by guviure          ###   ########.fr       */
+/*   Updated: 2026/01/18 23:23:07 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdint.h>
-
-typedef struct s_gnl_state
-{
-	char	*line;
-	ssize_t	line_length;
-}	t_gnl_state;
-
-typedef struct s_gnl_data
-{
-	char	buffer[BUFFER_SIZE];
-	ssize_t	bytes_read;
-	ssize_t	buffer_index;
-}	t_gnl_data;
 
 typedef struct s_list
 {
@@ -81,5 +68,6 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 size_t	ft_realloc(void **buffer, size_t old_size, size_t new_size);
 char	*ft_get_next_line(int fd);
+
 
 #endif
