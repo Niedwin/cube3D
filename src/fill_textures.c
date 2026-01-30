@@ -12,16 +12,3 @@
 
 #include "cube.h"
 
-void	fill_path(char *path, char *id, char *line, int *error, int i)
-{
-	{
-		if (path == NULL)//verify said field to proceed only if empty
-		//	fill_path(path, id, line, error, i);//fill associated field
-		else
-		{
-			printf("Error\nMultiple attribution for %s at line %i\n", id, i);
-			*error ++;
-		}
-	}
-}
-

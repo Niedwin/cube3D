@@ -12,27 +12,7 @@
 
 #include "cube.h"
 
-int	checkpath_textures(char *path, char *prefix, int *error)
-{
-	char	*tmp;
-	int		fd;
-
-	fd = open(path, 0, O_RDONLY)
-	if (0 > fd)
-	{
-		printf("Error\n\nCannot open %s as %s texture", path, prefix);
-		*error ++;
-		return ;
-	}
-	tmp = mlx_xpm_file_to_image();//might need to free !!!
-	if (!tmp)
-	{
-		printf("Error\n\n%s cannot be used by the MLX\n", prefix);
-		*error ++;
-	}
-	close(fd);
-}
-
+//TODO test if properly handles empty files and is to Norme
 int	check_args_n_fd(int argc, char **argv)
 {
 	int	fd;
@@ -53,10 +33,16 @@ int	check_args_n_fd(int argc, char **argv)
 		printf("Error\n\nCannot open the given '.cub'\n");
 		exit(1);
 	}
+	if (!get_next_line(fd))
+	{
+		printf("Error\n\nFile is empty\n");
+		exit(1);
+	}
+	close(fd);
 	return (fd);
 }
 
-void	initialize_struct(t_header *header)//initialize all fields to NULL
+void	initialize_struct(t_header *header)//TODO fuck memset
 {
 	header->ceiling = ft_memset(ceiling, 0, 4);
 	header->floor = ft_memset(ceiling, 0, 4);

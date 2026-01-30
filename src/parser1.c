@@ -35,18 +35,21 @@ void	fill_fields(t_header *header, char *line, int *error, int i)
 		printf("Error\nInvalid line found at : %i\n", i);
 	}
 }
+
+//TODO verify that re-opening the file indeed restart gnl
 void	verify_header(t_header *header, int *error)
 {
 	int	i;
 	char *line;
 
 	i = 0;
+	open(header->fd);
 	while (check_empty_fields(header))
 	{
 		line = get_next_line(fd);// ! no free
 		if (!line)
 		{
-			printf("Error\nGet_next_line failed at line %i\n", i);
+			printf("Error\nGet_next_line failed at line %i \n", i);//EOF
 			*error ++;
 			return ;
 		}

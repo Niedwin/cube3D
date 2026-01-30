@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "cube.h"
+
+// returns 0 if any characters from 'str' is not present in 'charset'
 //charset for map : " 01NSEW\n" subject indicate 6 but exemple shows 8 for spaces n newlines
 int	only_charset(char *str, char *set)//could indicate bad chars if needed
 {
@@ -47,6 +49,7 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
+//returns 0 if 'postfix' was found at the end of 'source'
 int	check_postfix(char *source, char *postfix)
 {
 	int	i;
@@ -66,6 +69,7 @@ int	check_postfix(char *source, char *postfix)
 	return (1);
 }
 
+//TODO
 int	check_empty_fields(t_header *header)
 {
 	if (header->ceiling[3] && header->floor[3] && header->north &&
@@ -96,6 +100,7 @@ int	count_charset(char *str, char *charset)
 	return (count);
 }
 
+/*
 //might be better to not touch the path in case the spaces beetween are useful
 char	*remove_newline_n_spaces(char *str)
 {
@@ -118,8 +123,9 @@ char	*remove_newline_n_spaces(char *str)
 		to_remove --;
 	}
 	return (new);
-}
+}*/
 
+//return a pointer to the string after all the 'c' chars have been skipped
 char *skip_char(char *str, char c)
 {
 	int	i;
