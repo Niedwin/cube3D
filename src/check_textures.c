@@ -36,36 +36,53 @@ int	checkpath_textures(char *path, char *prefix, int *error)
 }
 */
 
+int	color_format()//TODO
+{
+	char **split_check;
+
+	if (!only_charset(line, "0123456789 ,\n"))
+	{
+		printf("Error\nInvalid color format for%s\n", prefix);
+		*error ++;
+	}
+	split_check = test//if NULL wrong number of ',' or too much numbers
+	if (!split_check)
+	{
+		printf("Error\nInvalid color f:ormat for%s\n", prefix);
+		*error ++;
+	}
+}
+
 //TODO FINISH
-void	fill_path(char *path, char *id, char *line, int *error, int i)
+void	fill_path(char *path, char *id, char *line, int *error)
 {
 	if (!check_postfix(line, "\n"))
 	{
-		printf("Error\nNo more text after %s at line %i\n", prefix, i);
+		printf("Error\nNo more text after %s\n", prefix);
 		*error ++;
 	}
 	line = skip_char(line + 2, ' ');
 }
 
 //either assess the line to give to 'prefix' or output an error
-void	check_path(char *path, char *prefix, char *line, int *error, int i)
+void	check_path(char *path, char *prefix, char *line, int *error)
 {
 	if (path == NULL)
-		fill_path(path, prefix, line, error, i);
+		fill_path(path, prefix, line, error);
 	else
 	{
-		printf("Error\nMultiple attribution for %s at line %i\n", prefix, i);
+		printf("Error\nMultiple attribution for %s\n", prefix);
 		*error ++;
 	}
 }
 
 //TODO FINISH
-void	fill_color(t_header *header, char *line, int *error, int i)
+void	fill_color(t_header *header, char *prefix, char *line, int *error)
 {	
 	line = skip_char(line + 2, ' ');
 	if (!floor_color_format(header, line))
 	{
-		printf("Error\nwrong floor color format at line %i\n", i);
+		printf("Error\nwrong floor color format for %s\n", prefix);
 		error ++;
 		return ;
 	}
@@ -73,13 +90,13 @@ void	fill_color(t_header *header, char *line, int *error, int i)
 
 //TODO FINISH
 //either assess the line to give the color 'prefix' or output an error
-void	check_color(char *color, char *prefix, char *line, int *error, int i)
+void	check_color(char *color, char *prefix, char *line, int *error)
 {
 	if (color[3] == 0)//TODO CHECK
-		fill_color(color, prefix, line, error, i);
+		fill_color(color, prefix, line, error);
 	else
 	{
-		printf("Error\nMultiple attribution for %s at line %i\n", prefix, i);
+		printf("Error\nMultiple attribution for %s\n", prefix);
 		*error ++;
 	}
 }

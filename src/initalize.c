@@ -27,7 +27,7 @@ int	check_args_n_fd(int argc, char **argv)
 		printf("Error\n\nInvalid file extension, must be '.cub'\n");
 		exit(1);
 	}
-	fd = open(argv[1], 0, O_RDONLY);//not finished!!!
+	fd = open(argv[1], 0, O_RDONLY);///
 	if (fd == -1)
 	{
 		printf("Error\n\nCannot open the given '.cub'\n");
@@ -42,15 +42,53 @@ int	check_args_n_fd(int argc, char **argv)
 	return (fd);
 }
 
-void	initialize_struct(t_header *header)//TODO fuck memset
+void	initialize_struct(t_header *header)
 {
-	header->ceiling = ft_memset(ceiling, 0, 4);
-	header->floor = ft_memset(ceiling, 0, 4);
+	header->ceiling[0] = 0;
+	header->ceiling[1] = 0;
+	header->ceiling[2] = 0;
+	header->ceiling[3] = 0;
+	header->floor[0] = 0;
+	header->floor[1] = 0;
+	header->floor[2] = 0;
+	header->floor[3] = 0;
 	header->north = NULL;
 	header->south = NULL;
 	header->east = NULL;
 	header->west = NULL;
 	header->map = NULL;
-	header->pos = ft_memset(pos, 0, 2);
+	header->pos[0] = 0;
+	header->pos[1] = 0;
 	return ;
+}
+
+void	free_from_header(t_header *header)
+{
+	if (header->north)
+		free(header->north);
+	if (header->south)
+		free(header->south);
+	if (header->east)
+		free(header->east);
+	if (header->west)
+		free(header->west);
+	free(header);
+}
+
+void	free_from_map(t_header *header)
+{
+	int	i;
+
+	i = 0;
+	while (header->map[i])
+	{
+		free(header->map[i])
+		i ++;
+	}
+	free(header->map);
+	free(header->north);
+	free(header->south);
+	free(header->east);
+	free(header->west);
+	free(header);
 }

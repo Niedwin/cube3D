@@ -32,13 +32,14 @@ int	main(int argc, char **argv)
 	header->fd = check_args_n_fd(argc, argv);//may check if file is empty 4 time
 
 	initialize_struct(header, error);
-	verify_header(header, error); //parse1
 
-	test_struct(header);
+	/*
+	if (verify_header(header, error))
+		test_struct(header);
+	*/
 
 	close(header->fd);
 	
-	//
 	free(header);
 	return (0);
 }

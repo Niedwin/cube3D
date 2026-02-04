@@ -36,6 +36,7 @@ int	only_charset(char *str, char *set)//could indicate bad chars if needed
 	return (1);
 }
 
+/*
 int	ft_strlen(char *str)
 {
 	int	i;
@@ -47,7 +48,7 @@ int	ft_strlen(char *str)
 			i ++;
 	}
 	return (i);
-}
+}*/
 
 //returns 0 if 'postfix' was found at the end of 'source'
 int	check_postfix(char *source, char *postfix)
