@@ -22,7 +22,9 @@ SRC =        src/main.c \
 			src/parsing/parser3.c                \
 			src/parsing/parsers.c                \
 			src/free.c    \
-			src/free2.c
+			src/free2.c \
+			src/gnl/get_next_line.c \
+			src/gnl/get_next_line_utils.c
 
 OBJ = $(SRC:.c=.o)
 

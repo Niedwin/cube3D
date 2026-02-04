@@ -6,7 +6,7 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 09:13:53 by mpajot-t          #+#    #+#             */
-/*   Updated: 2026/01/18 23:23:07 by guviure          ###   ########.fr       */
+/*   Updated: 2026/02/04 12:59:14 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 size_t	ft_realloc(void **buffer, size_t old_size, size_t new_size);
-char	*ft_get_next_line(int fd);
 
 
 #endif

@@ -1,20 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_next_line.c                                 :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:19:03 by guviure           #+#    #+#             */
-/*   Updated: 2026/01/18 23:16:33 by guviure          ###   ########.fr       */
+/*   Updated: 2026/02/04 13:04:03 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1024
-# endif
+#include "get_next_line.h"
+#include "../cube.h"
 
 char	*append_char_to_line(char *line, char c, ssize_t *line_length)
 {
@@ -25,59 +22,50 @@ char	*append_char_to_line(char *line, char c, ssize_t *line_length)
 	return (line);
 }
 
-int process_buffer_segment(char *buffer, ssize_t *index,
-        ssize_t bytes_read, char **line, ssize_t *line_length)
+char	*process_buffer(char *line, char *buffer,
+			ssize_t *index, ssize_t *line_length)
 {
-    while (*index < bytes_read)
-    {
-        *line = append_char_to_line(*line, buffer[*index], line_length);
-        if (buffer[*index] == '\n')
-        {
-            (*index)++;
-            return (1); // ligne complète
-        }
-        (*index)++;
-    }
-    return (0); // pas encore de ligne complète
+	while (buffer[(*index)])
+	{
+		if (buffer[*index] == '\n')
+		{
+			line = append_char_to_line(line, buffer[*index], line_length);
+			(*index)++;
+			return (line);
+		}
+		line = append_char_to_line(line, buffer[*index], line_length);
+		(*index)++;
+	}
+	return (line);
 }
 
-ssize_t read_into_buffer(int fd, char *buffer)
+char	*get_next_line(int fd)
 {
-    ssize_t bytes = read(fd, buffer, BUFFER_SIZE);
-    if (bytes < 0)
-        return -1;
-    if (bytes < BUFFER_SIZE)
-        buffer[bytes] = '\0';
-    return bytes;
+	static char		buffer[BUFFER_SIZE];
+	static ssize_t	bytes_read;
+	static ssize_t	buffer_index;
+	char			*line;
+	ssize_t			line_length;
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	line = NULL;
+	line_length = 0;
+	while (1)
+	{
+		if (buffer_index >= bytes_read)
+		{
+			bytes_read = read(fd, buffer, BUFFER_SIZE);
+			buffer_index = 0;
+			if (bytes_read < 0)
+				return (free(line), line = NULL, NULL);
+			buffer[bytes_read] = 0;
+		}
+		line = process_buffer(line, buffer, &buffer_index, &line_length);
+		if (buffer[buffer_index - 1] == '\n' || bytes_read == 0)
+			return (line);
+	}
 }
-
-
-char *ft_get_next_line(int fd)
-{
-    static char buffer[BUFFER_SIZE];
-    static ssize_t bytes_read = 0;
-    static ssize_t buffer_index = 0;
-    char *line = NULL;
-    ssize_t line_length = 0;
-    int done = 0;
-
-    if (fd < 0 || BUFFER_SIZE <= 0)
-        return NULL;
-    while (!done)
-    {
-        if (buffer_index >= bytes_read)
-        {
-            bytes_read = read_into_buffer(fd, buffer);
-            buffer_index = 0;
-            if (bytes_read <= 0)
-                return line;
-        }
-        done = process_buffer_segment(buffer, &buffer_index,
-                bytes_read, &line, &line_length);
-    }
-    return line;
-}
-
 /*
 #include <stdio.h>
 

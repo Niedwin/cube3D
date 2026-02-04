@@ -208,5 +208,6 @@ void	free_img(t_mlx *mlx, t_img *img);
 void	parsing_rgb(t_map *map, char *line, char direction);
 void	free_textures(t_game *game);
 void	cleanup_gnl(int fd);
+char	*get_next_line(int fd);
 
 #endif

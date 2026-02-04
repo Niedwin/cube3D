@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npederen <npederen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 13:46:37 by kguillem          #+#    #+#             */
-/*   Updated: 2026/01/23 14:54:23 by npederen         ###   ########.fr       */
+/*   Updated: 2026/02/04 13:02:57 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int    read_data_file(t_game *game, int fd)
 	
 	map_status = 0;
 	i = 1;
-	line = ft_get_next_line(fd);
+	line = get_next_line(fd);
 	if (!line)
 	{
 		printf("Error\nFichier Vide \n");
@@ -99,7 +99,7 @@ int    read_data_file(t_game *game, int fd)
 			exit(1);
 		}
 		free(line);
-		line = ft_get_next_line(fd);
+		line = get_next_line(fd);
 		i++;
 	}
 	free(line);
@@ -248,7 +248,7 @@ void fill_map(t_game *game, int fd)
 
 	i = 0;
 	map_status = 0;
-	line = ft_get_next_line(fd);
+	line = get_next_line(fd);
 	while (line)
 	{
 		if (is_map(line))
@@ -264,7 +264,7 @@ void fill_map(t_game *game, int fd)
 			}
 		}
 		free(line);
-		line = ft_get_next_line(fd); 
+		line = get_next_line(fd); 
 	}
 	close(fd);
    // cleanup_gnl(fd);
