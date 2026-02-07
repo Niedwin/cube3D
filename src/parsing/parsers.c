@@ -6,7 +6,7 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 13:46:37 by kguillem          #+#    #+#             */
-/*   Updated: 2026/02/04 13:02:57 by guviure          ###   ########.fr       */
+/*   Updated: 2026/02/07 14:50:17 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int    read_data_file(t_game *game, int fd)
 	return (0);
 }
 
+
 int checkstrchar(char c, char *str)
 {
 	int i;
@@ -135,33 +136,31 @@ int checkstrchar(char c, char *str)
 	return (1);
 }
 
+
 int check_arround(char **map, int i, int j)
 {
 	int ii;
 	int jj;
 
-	ii=i-1;
-	while (ii<=i+1)
+	ii = i - 1;
+	while (ii <= i + 1)
 	{
-		jj=j-1;
-		while (jj<=j+1)
+		jj = j - 1;
+		while (jj <= j + 1)
 		{	
-			if( !(((jj==j+1) && ((ii == i + 1) || (ii == i -1))) || ((jj==j-1) && ((ii == i + 1) || (ii == i -1)))))
+			if (!(((jj == j + 1) && ((ii == i + 1) || (ii == i - 1))) || ((jj== j - 1) && ((ii == i + 1) || (ii == i - 1)))))
 			{
-				if(map[ii] && map[ii][jj] && checkstrchar(map[ii][jj],"10ESWN") ==1 )
+				if(map[ii] && map[ii][jj] && checkstrchar(map[ii][jj],"10ESWN") == 1)
 				{
-					printf("Error\n la carte n'est pas ferme \n"); //TODO exit fine
-					//ft_free_split(map);
+					printf("Error\n la carte n'est pas ferme \n");
 					return (1);
 				}
-		}
 			jj++;
-		}
+			}
 		ii++;
+		}
 	}
-	
-
-return (0);
+	return (0);
 }
 
 int check_open_map(t_game *game)
@@ -171,36 +170,40 @@ int check_open_map(t_game *game)
 
 	i = 0;
 	j = 0;
-	if(only_charset(game->map->map_tab[0],"!1#\n") == 0 ||  only_charset(game->map->map_tab[game->map->height-1],"!1#\n") == 0)
+	if (game->map->width == -1)
+	{
+		printf("Error\n Map n'existe pas \n");
+		cleanup(game);
+		exit(1);	}
+	
+	if (only_charset(game->map->map_tab[0],"!1#\n") == 0 ||  only_charset(game->map->map_tab[game->map->height-1],"!1#\n") == 0)
 	{
 		printf("Error\n Map ouverte \n");
 		cleanup(game);
-		exit(1);// TODO exit 
+		exit(1);
 	}
 	while (i < game->map->height)
 	{
-		j=0;
+		j = 0;
 		while (j < game->map->width)
 		{
-		
-			if ((j == 0 || j == game->map->width -1) && checkstrchar(game->map->map_tab[i][j],"1#\n"))
+			if ((j == 0 || game->map->width == -1) && checkstrchar(game->map->map_tab[i][j],"1#\n"))
 			{
 				printf("Error\n Map ouverte \n");
 				cleanup(game);
-				exit(1);//TODO exit
+				exit(1);
 			}
-			if(game->map->map_tab[i][j]=='0' && check_arround(game->map->map_tab,i,j) == 1)
+			if (game->map->map_tab[i][j] == '0' && check_arround(game->map->map_tab, i, j) == 1)
 			{
-				printf("Error\n Map ouverte\n"); //TODO exit fine
+				printf("Error\n Map ouverte\n"); 
 				cleanup(game);
 				exit(1);
 			}
-		
 			j++;
 		}
 		i++;
 	}
-	return 0;
+	return (0);
 }
 
 int	write_map_line(t_map *map, char	*line, int i)
@@ -271,21 +274,27 @@ void fill_map(t_game *game, int fd)
 }
 
  
-void	create_map(t_map *map)
+void	create_map(t_game *game)
 {
 	int	i;
 
 	i = 0;
-	map->map_tab = malloc(sizeof(char *) * map->height);
-	if (!map->map_tab)
-		return ;
-	while (i < map->height)
+	if (game->map->height == 0 || game->map->width == 0)
 	{
-		map->map_tab[i] = malloc(sizeof(char) * (map->width + 1));
-		if (!map->map_tab[i])
+		exit_error("No map in File", game);
+		return ;
+	}
+	printf("%d, %d", game->map->height, game->map->width);
+	game->map->map_tab = malloc(sizeof(char *) * game->map->height);
+	if (!game->map->map_tab)
+		return ;
+	while (i < game->map->height)
+	{
+		game->map->map_tab[i] = malloc(sizeof(char) * (game->map->width + 1));
+		if (!game->map->map_tab[i])
 			return ;
-		ft_memset(map->map_tab[i], '#', map->width);
-		map->map_tab[i][map->width] = '\0';
+		ft_memset(game->map->map_tab[i], '#', game->map->width);
+		game->map->map_tab[i][game->map->width] = '\0';
 		i++;
 	}
 }
@@ -305,8 +314,7 @@ void load_and_read_map(t_game *game, char *filename)
 		cleanup(game); 
 		exit_error("Error reading map file", game);
 	}
-	
-	create_map(game->map);
+	create_map(game);
 	close(fd);
 	//cleanup_gnl(fd);
 	

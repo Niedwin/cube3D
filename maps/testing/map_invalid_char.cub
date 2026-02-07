@@ -1,12 +1,13 @@
 NO textures/bluestone.xpm
 SO textures/purplestone.xpm
 WE textures/mossy.xpm
-
+EA textures/redbrick.xpm
 
 F 220,100,0
 C 225,30,0
 
-1111
-1N01
-1001
-1111
+1111111
+100S001
+1011101
+101A101
+1111111

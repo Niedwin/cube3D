@@ -1,9 +1,9 @@
-NO ./north.xpm
-SO ./south.xpm
-WE ./west.xpm
-EA ./east.xpm
+NO textures/bluestone.xpm
+SO textures/purplestone.xpm
+WE textures/mossy.xpm
+EA textures/redbrick.xpm
 
-F 220,100   # seulement deux composantes
+F 220,100
 C 225,30,0
 
 1111
