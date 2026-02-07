@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npederen <npederen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 20:26:54 by guviure           #+#    #+#             */
-/*   Updated: 2026/01/23 13:46:14 by npederen         ###   ########.fr       */
+/*   Updated: 2026/02/07 17:49:35 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,14 @@ void	free_textures(t_game *game)
 {
 	if (!game || !game->tex)
 		return ;
-	free_img(game->mlx, game->tex->no);
-	free_img(game->mlx, game->tex->so);
-	free_img(game->mlx, game->tex->we);
-	free_img(game->mlx, game->tex->ea);
+	if (game->tex->no->img)
+		free_img(game->mlx, game->tex->no);
+	if (game->tex->so->img)
+		free_img(game->mlx, game->tex->so);
+	if (game->tex->we->img)
+		free_img(game->mlx, game->tex->we);
+	if (game->tex->ea->img)
+		free_img(game->mlx, game->tex->ea);
 	if (game->tex->no)
 		free(game->tex->no);
 	if (game->tex->so)

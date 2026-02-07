@@ -6,11 +6,27 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 18:51:48 by guviure           #+#    #+#             */
-/*   Updated: 2026/01/23 07:45:17 by guviure          ###   ########.fr       */
+/*   Updated: 2026/02/07 19:24:48 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
+
+int	char_count(char *str, char c)
+{
+	int	count;
+	int	i;
+
+	count = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			count ++;
+		i ++;
+	}
+	return (count);
+}
 
 int	only_charset(char *str, char *set)
 {

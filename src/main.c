@@ -135,7 +135,10 @@ int main(int argc, char **argv)
 
 	game->map->height = 0;
 	game->map->width = 0;
-
+	game->tex->no = ft_calloc(sizeof(t_img), 1);
+	game->tex->so = ft_calloc(sizeof(t_img), 1);
+	game->tex->we = ft_calloc(sizeof(t_img), 1);
+	game->tex->ea = ft_calloc(sizeof(t_img), 1);
 	// --- map et textures ---
 	load_and_read_map(game, argv[1]);
 	print_map(game->map);
@@ -147,10 +150,7 @@ int main(int argc, char **argv)
 	init_player(game);
 
 	// --- allocation textures img ---
-	game->tex->no = malloc(sizeof(t_img));
-	game->tex->so = malloc(sizeof(t_img));
-	game->tex->we = malloc(sizeof(t_img));
-	game->tex->ea = malloc(sizeof(t_img));
+
 	load_all_textures(game); // charge les 4 textures
 
 	render_frame(game);

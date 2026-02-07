@@ -6,32 +6,26 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 22:04:21 by kguillem          #+#    #+#             */
-/*   Updated: 2026/01/23 15:49:16 by guviure          ###   ########.fr       */
+/*   Updated: 2026/02/07 19:30:59 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-void check_floor(t_map *map, char *line, int i)
+void check_floor(t_game *game, char *line)
 {
-	if (map->f_rgb == -1)				 // verify said field to proceed only if empty
-		parsing_rgb(map, line, line[0]); // fill associated field
+	if (game->map->f_rgb == -1)				 // verify said field to proceed only if empty
+		parsing_rgb(game, line, line[0]); // fill associated field
 	else
-	{
-		printf("Error\nMultiple attribution de 'F' a la ligne %i\n", i);
-		exit(EXIT_FAILURE); // TODO exit normalement
-	}
+		exit_error(" Multiple F iteration", game); // TODO exit normalement
 }
 
-void check_ceilling(t_map *map, char *line, int i)
+void check_ceilling(t_game *game, char *line)
 {
-	if (map->c_rgb == -1)				 // verify said field to proceed only if empty
-		parsing_rgb(map, line, line[0]); // fill associated field
+	if (game->map->c_rgb == -1)				 // verify said field to proceed only if empty
+		parsing_rgb(game, line, line[0]); // fill associated field
 	else
-	{
-		printf("Error\nMultiple attribution for 'C' at line %i\n", i);
-		exit(EXIT_FAILURE); // TODO exit normalement
-	}
+		exit_error(" Multiple C iteration", game);
 }
 
 void ft_free(char **result)
@@ -86,13 +80,13 @@ int check_rgb_limit(int r, int g, int b, char **tab_value)
 	return (0);
 }
 
-void fill_rgb_data(t_map *map, char **split_rgb, char direction)
+void fill_rgb_data(t_game *game, char **split_rgb, char direction, char *line)
 {
 	int r;
 	int g;
 	int b;
 
-	if (!split_rgb || !map)
+	if (!split_rgb || !game->map)
 		return;
 	if (ft_verif_digit(split_rgb[0]) && ft_verif_digit(split_rgb[1]) &&
 		ft_verif_digit(split_rgb[2]))
@@ -103,43 +97,116 @@ void fill_rgb_data(t_map *map, char **split_rgb, char direction)
 		if (check_rgb_limit(r, g, b, split_rgb) == 0)
 		{
 			if (direction == 'F')
-				map->f_rgb = (r << 16) | (g << 8) | b;
+				game->map->f_rgb = (r << 16) | (g << 8) | b;
 			else if (direction == 'C')
-				map->c_rgb = (r << 16) | (g << 8) | b;
+				game->map->c_rgb = (r << 16) | (g << 8) | b;
 			else
 			{
-				printf("Error \n Pas une couleur RGB : %c\n", direction);
 				ft_free_split(split_rgb);
-				exit(1); // TODO exit normalement
+				free(line);
+				exit_error(" Not a RGB value", game);
 			}
 		}
 		else
 		{
-			printf("Error\n Le RGB n'est pas bon\n"); // TODO exit normalement
 			ft_free_split(split_rgb);
-			exit(1);
+			free(line);
+			exit_error(" Wrong RGB value1", game);
 		}
 	}
 	else
 	{
-		printf("\nGROS NUMBER RGB PAS VALIDE\n");
 		ft_free_split(split_rgb);
-		exit(1); // TODO exit normalement
+		free(line);
+		exit_error(" Wrong RGB value2", game);
 	}
 	ft_free_split(split_rgb);
 }
 
-void parsing_rgb(t_map *map, char *line, char direction)
+int	valid_channels(char *line)
+{
+	int	i;
+
+	i = 0;
+	if (line[i] == ',')
+		return (0);
+	while (line[i] != ',')
+		i ++;
+	if (line[i + 1] == ',')
+		return (0);
+	i ++;
+	while (line[i] != ',')
+		i ++;
+	if (!line[i + 1])
+		return (0);
+	return (1);
+}
+
+int	valid_ranges(char *line)
+{
+	int	i;
+	int	j;
+	
+	i = 0;
+	while (line[i])
+	{
+		j = 0;
+		while (ft_isdigit(line[i]))
+			j++;
+		if (j > 3)
+			return (0);
+		else if (j == 3)
+		{
+			if (line[i] <= '2' && line[i + 1] <= '5' && line[i + 2] <= '5')
+				i += j;
+			else
+				return (0);
+		}
+		else if (j != 0)
+			i += j;
+		else
+			i ++;
+	}
+	return (1);
+}
+
+void	color_format(t_game *game, char *rgb_line, char *line)
+{
+	if (!only_charset(rgb_line, "0123456789 ,"))
+	{
+		free(line);
+		free(rgb_line);
+		exit_error(" Invalid char format in color", game);
+	}
+	if (char_count(rgb_line, ',') != 2)
+	{
+		free(line);
+		free(rgb_line);
+		exit_error(" Invalid amount of color channels", game);
+	}
+	if (!valid_channels(rgb_line))
+	{
+		free(line);
+		free(rgb_line);
+		exit_error(" Missing values beetween color channels", game);
+	}
+	if (!valid_ranges(rgb_line))
+	{
+		free(line);
+		free(rgb_line);
+		exit_error(" Invalid numeric range in color channels", game);
+	}
+}
+
+void parsing_rgb(t_game *game, char *line, char direction)
 {
 	char *new_rgb_line;
 	char **split_rgb;
 
-	if (!map || !line)
+	if (!game->map || !line)
 		return;
-	if (direction == 'C')
-		new_rgb_line = ft_strtrim(line, " \n\tC");
-	else
-		new_rgb_line = ft_strtrim(line, " \n\tF");
+	new_rgb_line = ft_strtrim(line + 1, " \n\t");
+	color_format(game, new_rgb_line, line);
 	if (!new_rgb_line)
 	{
 		printf("Error\n la ligne nest pas au format RGB \n");
@@ -149,7 +216,7 @@ void parsing_rgb(t_map *map, char *line, char direction)
 	free(new_rgb_line); // libération ici
 	if (!split_rgb)
 		return;
-	fill_rgb_data(map, split_rgb, direction);
+	fill_rgb_data(game, split_rgb, direction, line);
 }
 
 void fill_floor(t_map *map, char *line, int i)

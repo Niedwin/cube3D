@@ -82,7 +82,7 @@ void	init_player(t_game *g)
 			if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 			{
 				if (found++)
-					exit_error("Error\nMultiple players", g);
+					exit_error(" Multiple players", g);
 				set_player(g, x, y, c);
 			}
 			x++;
@@ -90,5 +90,5 @@ void	init_player(t_game *g)
 		y++;
 	}
 	if (!found)
-		exit_error("Error\nNo player", g);
+		exit_error(" No player", g);
 }
