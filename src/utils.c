@@ -6,7 +6,7 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 18:51:48 by guviure           #+#    #+#             */
-/*   Updated: 2026/02/07 19:24:48 by guviure          ###   ########.fr       */
+/*   Updated: 2026/02/07 20:55:33 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,12 +110,4 @@ char	*remove_newline_n_spaces(char *str)
 		to_remove --;
 	}
 	return (new);
-}
-
-void	render_frame(t_game *game)
-{
-	fill_screen(game->mlx->img, 0x00333333);
-	raycast(game);
-	mlx_put_image_to_window(game->mlx->ptr,
-		game->mlx->win, game->mlx->img->img, 0, 0);
 }

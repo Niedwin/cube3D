@@ -6,7 +6,7 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 20:26:54 by guviure           #+#    #+#             */
-/*   Updated: 2026/02/07 17:49:35 by guviure          ###   ########.fr       */
+/*   Updated: 2026/02/07 20:52:41 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,16 @@ void	free_rgb_split(char **split)
 	free(split);
 }
 
-void free_img(t_mlx *mlx, t_img *img)
+void	free_img(t_mlx *mlx, t_img *img)
 {
-    if (!mlx || !mlx->ptr || !img)
-        return;
-    if (img->img)
-    {
-        mlx_destroy_image(mlx->ptr, img->img);
-        img->img = NULL;
-        img->addr = NULL;
-    }
+	if (!mlx || !mlx->ptr || !img)
+		return ;
+	if (img->img)
+	{
+		mlx_destroy_image(mlx->ptr, img->img);
+		img->img = NULL;
+		img->addr = NULL;
+	}
 }
 
 void	free_textures(t_game *game)

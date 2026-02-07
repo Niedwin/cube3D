@@ -6,17 +6,17 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 19:38:50 by kguillem          #+#    #+#             */
-/*   Updated: 2026/02/07 17:03:48 by guviure          ###   ########.fr       */
+/*   Updated: 2026/02/07 20:02:18 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-void check_north(t_game *game, t_map *map, char *line)
+void	check_north(t_game *game, t_map *map, char *line)
 {
 	char	*new_line;
 	int		tmpfd;
-	
+
 	tmpfd = 0;
 	if (!map->no_path)
 	{
@@ -25,29 +25,26 @@ void check_north(t_game *game, t_map *map, char *line)
 		free(new_line);
 	}
 	else
-	{
-		free(line);
-		exit_error(" Multiple NO iteration", game);
-	}
-	if (check_postfix(map->no_path,".xpm")==0)
+		exit_error_free_line(" Multiple NO iteration", game, line);
+	if (check_postfix(map->no_path, ".xpm") == 0)
 	{
 		free(line);
 		exit_error(" Not an XPM file", game);
 	}
-	tmpfd=open(map->no_path,O_RDONLY);
+	tmpfd = open(map->no_path, O_RDONLY);
 	if (tmpfd < 0)
 	{
 		free(line);
 		exit_error(" Can't open texture file", game);
 	}
-	close(tmpfd);	
+	close(tmpfd);
 }
 
-void check_south(t_game *game, t_map *map, char *line)
+void	check_south(t_game *game, t_map *map, char *line)
 {
 	char	*new_line;
-	int     tmpfd;
-	
+	int		tmpfd;
+
 	tmpfd = 0;
 	if (!map->so_path)
 	{
@@ -56,30 +53,27 @@ void check_south(t_game *game, t_map *map, char *line)
 		free(new_line);
 	}
 	else
-	{
-		free(line);
-		exit_error(" Multiple SO iteration", game);
-	}
-	if (check_postfix(map->so_path,".xpm")==0)
+		exit_error_free_line(" Multiple SO iteration", game, line);
+	if (check_postfix(map->so_path, ".xpm") == 0)
 	{
 		free(line);
 		exit_error(" Not an XPM file", game);
 	}
-	tmpfd=open(map->so_path,O_RDONLY);
+	tmpfd = open(map->so_path, O_RDONLY);
 	if (tmpfd < 0)
 	{
 		free(line);
 		exit_error(" Can't open texture file", game);
 	}
-	close(tmpfd);	
+	close(tmpfd);
 }
 
-void check_west(t_game *game, t_map *map, char *line)
+void	check_west(t_game *game, t_map *map, char *line)
 {
 	char	*new_line;
 	int		tmpfd;
 
-	tmpfd = 0;	
+	tmpfd = 0;
 	if (!map->we_path)
 	{
 		new_line = ft_strtrim(line + 2, " \n");
@@ -87,30 +81,27 @@ void check_west(t_game *game, t_map *map, char *line)
 		free(new_line);
 	}
 	else
-	{
-		free(line);
-		exit_error(" Multiple WE iteration", game);
-	}
-	if (check_postfix(map->we_path,".xpm")==0)
+		exit_error_free_line(" Multiple WE iteration", game, line);
+	if (check_postfix(map->we_path, ".xpm") == 0)
 	{
 		free(line);
 		exit_error(" Not an XPM file", game);
 	}
-	tmpfd=open(map->we_path,O_RDONLY);
+	tmpfd = open(map->we_path, O_RDONLY);
 	if (tmpfd < 0)
 	{
 		free(line);
 		exit_error(" Can't open texture file", game);
 	}
-	close(tmpfd);	
+	close (tmpfd);
 }
 
-void check_east(t_game *game, t_map *map, char *line)
+void	check_east(t_game *game, t_map *map, char *line)
 {
 	char	*new_line;
-	int    tmpfd;
+	int		tmpfd;
 
-	tmpfd = 0;	
+	tmpfd = 0;
 	if (!map->ea_path)
 	{
 		new_line = ft_strtrim(line + 2, " \n");
@@ -118,20 +109,17 @@ void check_east(t_game *game, t_map *map, char *line)
 		free(new_line);
 	}
 	else
-	{
-		free(line);
-		exit_error(" Multiple EA iteration", game);
-	}
-	if (check_postfix(map->ea_path,".xpm")==0)
+		exit_error_free_line(" Multiple EA iteration", game, line);
+	if (check_postfix(map->ea_path, ".xpm") == 0)
 	{
 		free(line);
 		exit_error(" Not an XPM file", game);
 	}
-	tmpfd=open(map->ea_path,O_RDONLY);
+	tmpfd = open(map->ea_path, O_RDONLY);
 	if (tmpfd < 0)
 	{
 		free(line);
 		exit_error(" Can't open texture file", game);
 	}
-	close(tmpfd);	
+	close (tmpfd);
 }

@@ -19,14 +19,22 @@ SRC =        src/main.c \
 			src/parsing/fill_textures_kerloye.c \
 			src/initialize.c \
 			src/check_n_fill_colors.c    \
+			src/check_n_fill_colors2.c \
+			src/check_n_fill_colors3.c \
 			src/parsing/parser3.c                \
 			src/parsing/parsers.c                \
+			src/parsing/parsers2.c \
 			src/free.c    \
 			src/free2.c \
 			src/gnl/get_next_line.c \
-			src/gnl/get_next_line_utils.c
+			src/gnl/get_next_line_utils.c \
+			src/screen.c  
+
+BONUS_SRC =
 
 OBJ = $(SRC:.c=.o)
+
+BONUS_OBJ = ${BONUS_SRC:.c=.o}
 
 all: $(NAME) 
 
@@ -38,8 +46,14 @@ $(NAME): $(OBJ)
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
+bonus: ${OBJ} ${BONUS_OBJ}
+	$(MAKE) -C $(LIBFT_DIR)
+	$(MAKE) -C $(MLX_DIR)
+	$(CC) $(CFLAGS) $(OBJ) -I$(MLX_DIR) -L$(MLX_DIR) -lmlx -L/usr/lib -lXext -lX11 -lm -L$(LIBFT_DIR) -lft -o $(NAME)
+	
 clean:
 	rm -f $(OBJ)
+	rm -f ${BONUS_OBJ}
 	$(MAKE) clean -C $(LIBFT_DIR)
 	$(MAKE) clean -C $(MLX_DIR)
 
@@ -49,4 +63,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus

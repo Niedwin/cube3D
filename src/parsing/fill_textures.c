@@ -6,7 +6,7 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 19:38:50 by kguillem          #+#    #+#             */
-/*   Updated: 2026/02/07 17:53:55 by guviure          ###   ########.fr       */
+/*   Updated: 2026/02/07 23:00:22 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	load_texture(t_game *g, t_img *tex, char *path)
 	tex->img = mlx_xpm_file_to_image(g->mlx->ptr,
 			path, &tex->width, &tex->height);
 	if (!tex->img)
-		exit_error(" Can't load img tex", g);
+		exit_error(" Can't load img texture", g);
 	tex->addr = (int *)mlx_get_data_addr(tex->img,
 			&tex->bpp, &tex->line_len, &tex->endian);
 }
