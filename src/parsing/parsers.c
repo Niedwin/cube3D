@@ -6,7 +6,7 @@
 /*   By: guviure <guviure@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 13:46:37 by kguillem          #+#    #+#             */
-/*   Updated: 2026/02/07 14:50:17 by guviure          ###   ########.fr       */
+/*   Updated: 2026/02/07 14:55:01 by guviure          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,7 +284,6 @@ void	create_map(t_game *game)
 		exit_error("No map in File", game);
 		return ;
 	}
-	printf("%d, %d", game->map->height, game->map->width);
 	game->map->map_tab = malloc(sizeof(char *) * game->map->height);
 	if (!game->map->map_tab)
 		return ;
