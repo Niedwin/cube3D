@@ -12,6 +12,22 @@
 
 #include "cube.h"
 
+int	char_count(char *str, char c)
+{
+	int	count;
+	int	i;
+
+	count = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			count ++;
+		i ++;
+	}
+	return (count);
+}
+
 // returns 0 if any characters from 'str' is not present in 'charset'
 //charset for map : " 01NSEW\n" subject indicate 6 but exemple shows 8 for spaces n newlines
 int	only_charset(char *str, char *set)//could indicate bad chars if needed

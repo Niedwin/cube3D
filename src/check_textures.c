@@ -36,25 +36,12 @@ int	checkpath_textures(char *path, char *prefix, int *error)
 }
 */
 
-int	color_format()//TODO
-{
-	char **split_check;
-
-	if (!only_charset(line, "0123456789 ,\n"))
-	{
-		printf("Error\nInvalid color format for%s\n", prefix);
-		*error ++;
-	}
-	split_check = test//if NULL wrong number of ',' or too much numbers
-	if (!split_check)
-	{
-		printf("Error\nInvalid color f:ormat for%s\n", prefix);
-		*error ++;
-	}
-}
+/*
+remove_newline_n_spaces
+*/
 
 //TODO FINISH
-void	fill_path(char *path, char *id, char *line, int *error)
+int	fill_path(char *path, char *id, char *line)
 {
 	if (!check_postfix(line, "\n"))
 	{
@@ -65,39 +52,94 @@ void	fill_path(char *path, char *id, char *line, int *error)
 }
 
 //either assess the line to give to 'prefix' or output an error
-void	check_path(char *path, char *prefix, char *line, int *error)
+void	check_path(char *path, char *prefix, char *line)
 {
 	if (path == NULL)
-		fill_path(path, prefix, line, error);
+		return (fill_path(path, prefix, line, error));
 	else
-	{
 		printf("Error\nMultiple attribution for %s\n", prefix);
-		*error ++;
-	}
+	return (0);
 }
 
-//TODO FINISH
-void	fill_color(t_header *header, char *prefix, char *line, int *error)
-{	
-	line = skip_char(line + 2, ' ');
-	if (!floor_color_format(header, line))
-	{
-		printf("Error\nwrong floor color format for %s\n", prefix);
-		error ++;
-		return ;
-	}
-}
-
-//TODO FINISH
-//either assess the line to give the color 'prefix' or output an error
-void	check_color(char *color, char *prefix, char *line, int *error)
+int	valid_channels(char *line)
 {
-	if (color[3] == 0)//TODO CHECK
-		fill_color(color, prefix, line, error);
+	int	i;
+
+	i = 0;
+	if (line[0] == ',')
+		return (0);
+	while (line[i] && line[i] != ',')
+		i ++;
+	if (!line[i] || line[i + 1] == ',')
+		return (0);
+	return (1);
+}
+
+int	valid_ranges(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == ',')
+			i ++;
+
+		i ++;
+	}
+	return (1);
+}
+
+int	color_format()//TODO
+{
+	if (!only_charset(line, "0123456789 ,\n"))
+	{
+		printf("Error\nInvalid color format for %s\n", prefix);
+		return (0);
+	}
+	if (char_count(line, ',') != 2)
+	{
+		printf("Error\nInvalid amount of channels for %s\n", prefix);
+		return (0);
+	}
+	if (!valid_channels(line))
+	{
+		printf("Error\nMissing values beetween channels for %s\n", prefix);
+		return (0);
+	}
+	if (!valid_ranges(line))
+	{
+		printf("Error\nInvalid numeric range in channels for %s\n", prefix);
+		return (0);
+	}
+	return (1);
+}
+
+//TODO FINISH
+int	check_color(int *color, char *prefix, char *line)
+{
+	int	i;
+
+	if (color[0] == -1)
+	{
+		line = skip_char(line + 2, ' ');//might need to free beforehand
+		if (!color_format(line, prefix))
+			return (0);
+		i = 0;
+		color[0] = //atoi
+		while (str[i] != ',')
+			i ++;
+		color[1] = //atoi
+		i ++;
+		while (str[i] != ',')
+			i ++;
+		color[2] = //atoi
+	}
 	else
 	{
 		printf("Error\nMultiple attribution for %s\n", prefix);
-		*error ++;
+		return (0);
 	}
+	return (1);
 }
 
